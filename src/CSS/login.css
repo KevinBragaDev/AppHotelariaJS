@@ -1,0 +1,49 @@
+* {
+    background-color:  rgb(44, 44, 44);
+    box-sizing: border-box;
+    outline: 0;
+}
+body{
+    margin: 0;
+    padding: 0;
+    font-family: 'Open sans', sans-serif;
+    font-size: 1.3em;
+    line-height: 1.5em;
+}
+
+form button {
+    background-color: rgb(46, 200, 238) ;
+    border: none;
+    color: #000000;
+    font-weight: 700;
+    height: 50px;
+    font-size: 18px;
+    margin-top: 30px;
+    cursor: pointer;
+    border-radius: 5px;
+    
+}
+
+form input {
+    font-size: 24px;
+    height: 50px;
+    padding: 0 20px;
+    border-radius: 5px;
+    margin-bottom: 15px;
+}
+
+.container {
+    max-width: 640px;
+    margin: 50px auto;
+    padding: 20px;
+    border-radius: 10px;
+}
+
+form input, button {
+    display: block;
+    width: 100%;
+}
+
+form input:focus {
+    outline:  1px solid;
+}
