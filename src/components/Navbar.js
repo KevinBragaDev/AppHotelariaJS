@@ -29,10 +29,17 @@ export default function Navbar() {
     <li><hr class="dropdown-divider"></li>
     <li><a class="dropdown-item" href="#">Something else here</a></li>
     </ul>
+    
+
     </li>
     <li class="nav-item">
-    <a class="nav-link disabled" aria-disabled="true">Disabled</a>
+    <a class="nav-link" href = "#/register">Cadastre-se</a>
     </li>
+    <li class="nav-item">
+    <a class="nav-link" href="#/login">Login</a>
+    </li>
+
+
     </ul>
     <form class="d-flex" role="search">
     <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search"/>

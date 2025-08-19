@@ -1,4 +1,5 @@
 export default function Form() {
+    
     const divRoot = document.getElementById('root');
     divRoot.innerHTML = '';
 
@@ -16,10 +17,12 @@ export default function Form() {
     const formulario = document.createElement('form');
     formulario.className = 'd-flex flex-column';
 
+
     const email = document.createElement('input');
     email.type = 'email';
     email.placeholder = "Digite seu e-mail";
     formulario.appendChild(email);
+
 
     const password = document.createElement('input');
     password.type = 'password';
@@ -32,10 +35,10 @@ export default function Form() {
     btn.className = 'btn btn-primary';
     formulario.appendChild(btn);
 
+
     container.appendChild(titulo)
     container.appendChild(formulario)
-    return formulario;
+
+
+    return divRoot;
 }
-
-
-
