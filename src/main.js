@@ -11,7 +11,7 @@ const routes = {
 function getPath() {
     //Obtem o hash (ex. "$/login"), remove o # e tira espaços
     const url = (location.hash || "").replace(/^#/, "").trim();
-    //retorna url se começar com "/", se nao, retorna "/login" como padrao
+    //retorna url se começar com "/", se nao, retorna "/login" como padrao, posteriormente será /home
     return url && url.startsWith("/") ? url : "login";
 }
 

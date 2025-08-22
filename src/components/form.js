@@ -36,9 +36,9 @@ export default function Form() {
     formulario.appendChild(btn);
 
 
-    container.appendChild(titulo)
-    container.appendChild(formulario)
-
-
-    return divRoot;
+    container.appendChild(titulo);
+    container.appendChild(formulario);
+    
+    
+    return container;
 }
