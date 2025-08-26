@@ -40,5 +40,5 @@ export default function Form() {
     container.appendChild(formulario);
     
     
-    return container;
+    return divRoot;
 }

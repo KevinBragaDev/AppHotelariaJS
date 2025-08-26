@@ -11,6 +11,8 @@ export default function renderLoginPage() {
     
     const FormContainer = Form()
 
+
+
     const signupLink = document.createElement('p');
     signupLink.innerHTML = `Não possui uma conta? <a href="#" id="signup-link">Cadastre-se</a>`;
     signupLink.style.textAlign = 'center';
