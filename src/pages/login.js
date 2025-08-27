@@ -14,7 +14,7 @@ export default function renderLoginPage() {
 
 
     const signupLink = document.createElement('p');
-    signupLink.innerHTML = `Não possui uma conta? <a href="#" id="signup-link">Cadastre-se</a>`;
+    signupLink.innerHTML = `Não possui uma conta? <a href="register" id="signup-link">Cadastre-se</a>`;
     signupLink.style.textAlign = 'center';
     signupLink.style.marginTop = '20px';
 
@@ -22,7 +22,8 @@ export default function renderLoginPage() {
 
     document.getElementById('signup-link').addEventListener('click', (e) => {
         e.preventDefault();
-        renderRegisterPage();
+        renderRegisterPage()
+    
     });
     
 }

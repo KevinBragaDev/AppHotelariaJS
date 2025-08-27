@@ -4,8 +4,8 @@ export default function Navbar() {
     navbar.innerHTML = `<nav class="navbar navbar-expand-lg bg-body-tertiary">
     <div class="container-fluid">
 
-    <a class="navbar-brand" href="..public/login.html">
-        <img src = "../public/assets/img/logo.png" alt="Logo" height="90">
+    <a class="navbar-brand" href="home">
+        <img src = "publics/assets/img/logo.png" alt="Logo" height="90">
         </a>
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -14,7 +14,7 @@ export default function Navbar() {
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
     <ul class="navbar-nav me-auto mb-2 mb-lg-0">
     <li class="nav-item">
-    <a class="nav-link active" aria-current="page" href="#/home">Home</a>
+    <a class="nav-link active" aria-current="page" href="home">Home</a>
     </li>
     <li class="nav-item">
     <a class="nav-link" href="#">Link</a>
@@ -32,10 +32,10 @@ export default function Navbar() {
     
     </li>
     <li class="nav-item">
-    <a class="nav-link" href = "#/register">Cadastre-se</a>
+    <a class="nav-link" href = "register">Cadastre-se</a>
     </li>
     <li class="nav-item">
-    <a class="nav-link" href="#/login">Login</a>
+    <a class="nav-link" href="login">Login</a>
     </li>
 
     
