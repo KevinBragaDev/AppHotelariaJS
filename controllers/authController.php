@@ -1,6 +1,6 @@
 <?php
 require_once __DIR__ . "/../models/userModel.php";
-require_once __DIR__ . "/../controllers/authController.php";
+require_once "passwordController.php";
 
 class AuthController{
     public static function login($conn, $data) {
@@ -15,7 +15,7 @@ class AuthController{
             ],401);
         }
 
-        $user = UserModel:: validateUser($conn, "kevin@gmail.com", "12345");
+        $user = UserModel:: validateUser($conn, $data['email'], $data ['password']);
             if ($user) {
                 return jsonResponse([
                 "id"=>$user['id'],

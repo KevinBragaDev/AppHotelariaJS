@@ -1,4 +1,5 @@
 <?php
+require_once "helpers/response.php";
 require_once "config/database.php";
 
 if ($erroDB) {
@@ -16,7 +17,8 @@ $route = $segments[0] ?? null;
 $subRoute = $segments[1] ?? null;
 
 if ($route != "api") {
-    require __DIR__ . "/publics/index.html";
+    //require __DIR__ . "/publics/index.html";
+    require "teste.php";
     exit;
 }
 
