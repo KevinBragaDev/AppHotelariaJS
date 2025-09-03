@@ -1,5 +1,5 @@
 <?php
-
+require_once __DIR__."/../controllers/passwordController.php";
 class UserModel {
     public static function validateUser($conn, $email, $password) {
         //$sql = "SELECT * FROM usuarios WHERE email = ?";
@@ -11,7 +11,7 @@ class UserModel {
         $result = $stmt->get_result();
 
         if($user = $result->fetch_assoc()) {
-            if($user['senha'] === $password) {
+            if(PasswordController::validateHash($password,$user['senha'])) {
                 unset($user['senha']);
                 return $user;
             }

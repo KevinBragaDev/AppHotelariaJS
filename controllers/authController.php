@@ -1,6 +1,7 @@
 <?php
 require_once __DIR__ . "/../models/userModel.php";
 require_once "passwordController.php";
+require_once __DIR__ . "/../helpers/token_jwt.php";
 
 class AuthController{
     public static function login($conn, $data) {
@@ -17,13 +18,8 @@ class AuthController{
 
         $user = UserModel:: validateUser($conn, $data['email'], $data ['password']);
             if ($user) {
-                return jsonResponse([
-                "id"=>$user['id'],
-                "nome"=>$user['nome'],
-                "email"=>$user['email'],
-                "cargo_id"=>$user['cargos']
-            
-            ]);
+                $token = createToken($user);
+                return jsonResponse(["token" => $token]);
         } else {
             return jsonResponse([
                 "status"=>"erro","message"=>"Credenciais invalidas"],401);
