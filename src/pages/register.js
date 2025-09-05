@@ -1,5 +1,6 @@
 import Form from "../components/form.js";
 import Navbar from "../components/Navbar.js";
+import Footer from "../components/footer.js";
 
 export default function renderRegisterPage() {
     
@@ -10,8 +11,6 @@ export default function renderRegisterPage() {
    nav.appendChild(navbar);
 
    const formulario = Form();
-   
-
     
    const titulo = formulario.querySelector('h1');
    titulo.textContent = "Cadastre-se";
@@ -42,4 +41,6 @@ export default function renderRegisterPage() {
 
    const btnRegister = formulario.querySelector('button');
    btnRegister.textContent = "Criar conta"; 
+
+   Footer();
 }

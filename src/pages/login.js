@@ -1,7 +1,8 @@
-import { loginRequest } from "../api/authAPI.js";
+import { loginRequest, saveToken } from "../api/authAPI.js";
 import Form from "../components/form.js";
 import Navbar from "../components/Navbar.js";
 import renderRegisterPage from "./register.js";
+import Footer from "../components/footer.js";
 
 export default function renderLoginPage() {
     const nav = document.getElementById('navbar');
@@ -10,8 +11,8 @@ export default function renderLoginPage() {
     const navbar = Navbar();
     nav.appendChild(navbar);
     
-    const FormContainer = Form()
-
+    const formulario = Form()
+    const contentForm= formulario.querySelector('form')    
     
 
     const signupLink = document.createElement('p');
@@ -19,7 +20,7 @@ export default function renderLoginPage() {
     signupLink.style.textAlign = 'center';
     signupLink.style.marginTop = '20px';
 
-    FormContainer.appendChild(signupLink);
+    formulario.appendChild(signupLink);
 
     document.getElementById('signup-link').addEventListener('click', (e) => {
         e.preventDefault();
@@ -39,6 +40,7 @@ export default function renderLoginPage() {
 
         try {
             const result = await loginRequest(email, senha);
+            saveToken(result.token);
             console.log("Login realizado com sucesso");
             //window.location.pathname = /home;
         }
@@ -47,5 +49,7 @@ export default function renderLoginPage() {
             console.log("Erro inesperado!");
         }
     });
+
+    Footer();
 
 }

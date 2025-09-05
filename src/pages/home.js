@@ -1,5 +1,6 @@
 import Hero from "../components/hero.js";
 import Navbar from "../components/Navbar.js";
+import Footer from "../components/footer.js";
 
 export default function renderHomePage() {
      const nav = document.getElementById('navbar');
@@ -13,4 +14,9 @@ export default function renderHomePage() {
 
     const carousel = Hero();
     home.appendChild(carousel);
+
+    Footer();
+
+
+
 }
