@@ -30,7 +30,6 @@ export default function renderLoginPage() {
     //Inputs e botão presentes no form
     const inputEmail = contentForm.querySelector('input[type="email"]');
     const inputSenha = contentForm.querySelector('input[type="password"]');
-    const btn = contentForm.querySelector('button[type="submit"]');
 
     //Monitora o clique no botão para acionar um evento de submeter os dados do form
     contentForm.addEventListener("submit", async (e) => {
@@ -41,7 +40,7 @@ export default function renderLoginPage() {
         try {
             const result = await loginRequest(email, senha);
             saveToken(result.token);
-            console.log("Login realizado com sucesso");
+            console.log(result.token);
             //window.location.pathname = /home;
         }
         

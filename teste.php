@@ -21,14 +21,6 @@ QuartoController::deletar($conn, "colocar id");
 
 
 
-
-
-
-
-
-
-
-
 // $data = [
 //     "email"=>"Kevin@outlook.com",
 //     "password"=>"123"

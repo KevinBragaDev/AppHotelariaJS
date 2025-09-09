@@ -1,6 +1,8 @@
 export async function loginRequest(email, senha) {
     const dados = {email, password: senha};
-    const response = await fetch ("/api/login", {
+
+
+    const response = await fetch ("api/login", {
         method: "POST",
         headers: {
             "Accept":"application/json",
@@ -28,7 +30,7 @@ export async function loginRequest(email, senha) {
     }
     
     if (!data || !data.token) {
-        const message = "Responsta invalida do servidor. Token ausente";
+        const message = "Resposta invalida do servidor. Token ausente";
         return {ok: false, token: null, raw: data, message};
     }
 
@@ -42,7 +44,7 @@ export async function loginRequest(email, senha) {
 ao salvar no local storage, o ususario podera mudar de pagina, fechar
 o site e ainda assim permanecer logado, DESDE QUE O TEMPO NAO TENHA EXPIRADO(1h)*/
 export function saveToken(token) {
-    localStorage.getItem("auth_token", token);
+    localStorage.setItem("auth_token", token);
 }
 
 //Recuperar a chave a cada página que o usuario navegar

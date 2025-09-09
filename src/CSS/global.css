@@ -30,6 +30,105 @@
     transform: scale(1.03);
 }
 
+/*Card*/
+.card {
+  max-width: 700px;
+  margin: 40px auto;
+  background-color: #fff;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+  padding: 20px;
+}
+
+.card-content {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.card-content img {
+  width: 150px;
+  height: 150px;
+  object-fit: cover;
+  border-radius: 8px;
+}
+
+.card-text {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.card-text h2 {
+  margin-top: 0;
+}
+
+.card-text button {
+  margin-top: auto; /* empurra o botão para o final do bloco */
+  align-self: flex-end; /* alinha o botão à direita */
+  padding: 10px 20px;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.card-text button:hover {
+  background-color: #0056b3;
+}
+
+#root {
+    flex-direction: column;
+}
 
 
+/*Carrossel do card*/
+.carousel {
+  position: relative;
+  width: 150px;
+  height: 150px;
+  overflow: hidden;
+  border-radius: 8px;
+  flex-shrink: 0;
+}
 
+.carousel-image {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 150px;
+  height: 150px;
+  object-fit: cover;
+  opacity: 0;
+  transition: opacity 0.5s ease-in-out;
+  border-radius: 8px;
+}
+
+.carousel-image.active {
+  opacity: 1;
+  position: relative; /* traz para frente */
+}
+
+/*Hero Section*/
+.hero-frame {
+    height: 56vh;
+    /*max-width: 1200px; limite de largura*/
+    margin: 0 auto;
+    overflow: hidden; /*impede que a imagem vaze do quadro*/
+    background: #f3f5f7; /*Aplicar cor ao fundo quando a imagem nao ocupa todo o espaço*/
+}
+
+.hero-img {
+    width: 100%;
+    height: 100%;
+    /*Aplica propritedade cover para que a imagem preecha o quadro*/
+    object-fit: contain;
+    object-position: center;
+}
+@media (max-width: 576px) {
+    .hero-frame {
+        height: 50vh;
+    }
+}
