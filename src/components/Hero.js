@@ -3,6 +3,7 @@ export default function Hero() {
     containerHero.className = 'hero w-100 d-flex justify-content-center';
     
     containerHero.innerHTML = `
+<div class = "hero-frame w-100">
     
  <div id="carouselExampleIndicators" class="carousel slide">
   <div class="carousel-indicators">
@@ -29,6 +30,7 @@ export default function Hero() {
     <span class="carousel-control-next-icon" aria-hidden="true"></span>
     <span class="visually-hidden">Next</span>
   </button>
+</div>
 </div>`;
 
 return containerHero;

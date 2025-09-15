@@ -85,7 +85,7 @@
 
 
 /*Carrossel do card*/
-.carousel {
+.carouselCard {
   position: relative;
   width: 150px;
   height: 150px;
@@ -113,22 +113,102 @@
 
 /*Hero Section*/
 .hero-frame {
-    height: 56vh;
     /*max-width: 1200px; limite de largura*/
-    margin: 0 auto;
     overflow: hidden; /*impede que a imagem vaze do quadro*/
-    background: #f3f5f7; /*Aplicar cor ao fundo quando a imagem nao ocupa todo o espaço*/
+    
 }
 
-.hero-img {
-    width: 100%;
-    height: 100%;
+.hero-img, .hero {
     /*Aplica propritedade cover para que a imagem preecha o quadro*/
-    object-fit: contain;
+    object-fit: cover;
     object-position: center;
+    height: 70vh;
 }
 @media (max-width: 576px) {
-    .hero-frame {
+    .hero-img, .hero {
         height: 50vh;
     }
 }
+
+
+
+/*estilo COMBO BOX*/
+.combo-box {
+  position: relative;
+  display: inline-block;
+  font-family: Arial, sans-serif;
+}
+
+.combo-button {
+  padding: 8px 12px;
+  font-size: 16px;
+  cursor: pointer;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  background-color: white;
+  width: 250px;
+  text-align: left;
+}
+
+.combo-dropdown {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  background: white;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  margin-top: 4px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+  padding: 8px;
+  z-index: 10;
+  min-width: 250px;
+}
+
+.item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 8px;
+  font-size: 14px;
+}
+
+.item:last-child {
+  margin-bottom: 0;
+}
+
+.item span {
+  flex: 1;
+}
+
+button.minus,
+button.plus {
+  width: 28px;
+  height: 28px;
+  border: 1px solid #ccc;
+  background-color: white;
+  color: #333;
+  font-weight: bold;
+  font-size: 20px;
+  line-height: 1;
+  cursor: pointer;
+  border-radius: 4px;
+  user-select: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  margin-left: 6px;
+  margin-right: 6px;
+}
+
+button.minus:hover,
+button.plus:hover {
+  background-color: #f0f0f0;
+}
+
+.number {
+  width: 20px;
+  text-align: center;
+  font-weight: 600;
+}
+

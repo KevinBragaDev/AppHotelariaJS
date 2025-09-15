@@ -3,7 +3,7 @@ const containerCard = document.createElement('div');
   containerCard.className = 'card';
   containerCard.innerHTML = `
   <div class="card-content">
-      <div class="carousel">
+      <div class="carouselCard">
         <img src="publics/assets/img/suite1.jpg" alt="Imagem 1" class="carousel-image active" />
         <img src="publics/assets/img/suite2.jpg" alt="Imagem 2" class="carousel-image" />
         <img src="publics/assets/img/suite3.jpg" alt="Imagem 3" class="carousel-image" />
