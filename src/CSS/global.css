@@ -80,9 +80,9 @@
 }
 
 #root {
-    flex-direction: column;
+  flex-direction: column;
+  margin-bottom: 10vh;
 }
-
 
 /*Carrossel do card*/
 .carouselCard {
@@ -124,10 +124,95 @@
     object-position: center;
     height: 70vh;
 }
+
+.hero {
+  margin-top: 50px; /* Ajuste esse valor conforme a altura da sua navbar */
+}
+
 @media (max-width: 576px) {
     .hero-img, .hero {
         height: 50vh;
     }
+}
+
+/*esitlo Date container*/
+.date-container {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+
+  background-color: #fff;
+  padding: 16px;
+  border-radius: 10px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  max-width: 1000px;
+  margin: 20px auto; /* >>> isso garante que ele fique separado do carrossel <<< */
+  z-index: 1;
+  position: relative;
+}
+
+.date-container input[type="search"],
+.date-container input[type="date"],
+.date-container .combo-button,
+.date-container button[type="submit"] {
+  display: inline-flex;
+  align-items: center;
+  height: 38px;
+  padding: 8px 12px;
+  font-size: 14px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  font-family: inherit;
+  line-height: 1;
+  box-sizing: border-box;
+  vertical-align: middle;
+  margin: 0;
+}
+
+.date-container input[type="search"] {
+  width: 200px;
+}
+
+.date-container input[type="date"] {
+  width: 150px;
+}
+
+.date-container .combo-box {
+  width: 220px;
+}
+
+.date-container button[type="submit"] {
+  width: 100px;
+  background-color: #007bff;
+  color: white;
+  font-weight: bold;
+  border: none;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: background-color 0.3s ease;
+  padding: 10px 29px;
+  
+  
+}
+
+.date-container button[type="submit"]:hover {
+  background-color: #0056b3;
+}
+
+.date-container input,
+.date-container .combo-button {
+  height: 38px;
+  padding: 8px 12px;
+  font-size: 14px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  font-family: inherit;
+  line-height: normal;
+  display: inline-flex;
+  align-items: center;
+  box-sizing: border-box;
 }
 
 
@@ -137,6 +222,8 @@
   position: relative;
   display: inline-block;
   font-family: Arial, sans-serif;
+  width: 200px;
+  
 }
 
 .combo-button {
@@ -144,10 +231,14 @@
   font-size: 16px;
   cursor: pointer;
   border: 1px solid #ccc;
-  border-radius: 5px;
+  border-radius: 6px;
   background-color: white;
-  width: 250px;
+  width: 100%;
   text-align: left;
+  padding: 8px 12px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .combo-dropdown {
@@ -211,4 +302,6 @@ button.plus:hover {
   text-align: center;
   font-weight: 600;
 }
+
+
 

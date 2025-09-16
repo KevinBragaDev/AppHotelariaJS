@@ -11,19 +11,26 @@ export default function renderHomePage() {
        const navbar = Navbar();
        nav.appendChild(navbar);
 
-    const home = document.getElementById('root');
-    home.innerHTML = '';
+    const divRoot = document.getElementById('root');
+    divRoot.innerHTML = '';
 
-    const selector = dateContainer();
-    home.appendChild(selector);
-    
     const carrousel = Hero();
-    home.appendChild(carrousel);
+    divRoot.appendChild(carrousel);
     
+    const selector = dateContainer();
+    divRoot.appendChild(selector);
     Footer();
-
-    const card = Card();
-    home.appendChild(card);
-
     
+    const cardDiv = document.createElement('div');
+    cardDiv.style.display ='grid';
+    cardDiv.style.gridTemplateColumns ='auto auto auto';
+    cardDiv.className = 'cards';
+    cardDiv.style.gap = '15px';
+ 
+    for(var i=0; i < 6; i++){
+        const card = Card();
+        cardDiv.appendChild(card);
+    }
+ 
+    divRoot.appendChild(cardDiv);
 }

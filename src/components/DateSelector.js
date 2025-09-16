@@ -61,7 +61,8 @@ const counts = {
 };
 
 function updateButtonLabel() {
-  button.textContent = `Adultos - ${counts.adultos}, Crianças - ${counts.criancas}, Quartos - ${counts.quartos}`;
+  button.textContent = `Adulto - ${counts.adultos} Criança - ${counts.criancas} Quarto - ${counts.quartos}`;
+
 }
 
 button.addEventListener('click', () => {
