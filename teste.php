@@ -3,7 +3,7 @@ require_once __DIR__ . "/controllers/authController.php";
 require_once __DIR__ . "/controllers/passwordController.php";
 require_once __DIR__ . "/controllers/quartoController.php";
 require_once __DIR__ . "/helpers/token_jwt.php";
-
+require_once __DIR__ . "/controllers/PasswordController.php";
 
 $data = [
     "nome" => "Quarto Supremo",
@@ -13,11 +13,11 @@ $data = [
     "preco" => 5000,
     "disponivel" => 1
 ];
-QuartoController::criar($conn, $data);
-QuartoController::listarTodos($conn);
-QuartoController::buscarPorid($conn, "colocar id");
-QuartoController::atualizar($conn, $data);
-QuartoController::deletar($conn, "colocar id");
+// QuartoController::criar($conn, $data);
+// QuartoController::listarTodos($conn);
+QuartoController::buscarPorid($conn, "1");
+// QuartoController::atualizar($conn, $data);
+// QuartoController::deletar($conn, "colocar id");
 
 
 

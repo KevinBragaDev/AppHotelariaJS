@@ -1,35 +1,46 @@
 <?php
 class adicionalModel {
-    public static function listarTodos($conn, $email, $password) {
-        $sql = "SELECT * FROM clientes = ?";
-        $stmt = $conn-> prepare($sql);
-        $stmt->bind_param("s", $email);
-        $stmt->execute();
-        $result = $stmt->get_result();
-
-        if($user = $result->fetch_assoc()) {
-            if($user['senha'] === $password) {
-                unset($user['senha']);
-                return $user;
-            }
-        }
-        return false;
+    public static function listarTodos($conn) {
+        $sql = "SELECT * FROM adicionais";
+        $result = $conn->query($sql);
+        return $result->fetch_all(MYSQLI_ASSOC);
     }
 
-    public static function buscarPorid($conn){
-
+    public static function buscarPorid($conn, $id){
+        $sql = "SELECT * FROM adicionais WHERE id = ?";
+        $stmt = $conn->prepare($sql);
+        $stmt->bind_param("i", $id);
+        $stmt->execute();
+        return $stmt->get_result()->fetch_assoc();
     }
 
     public static function criar($conn) {
-
+        $sql = "INSERT INTO adicionais (nome, preco)
+                VALUES (?, ?);";
+        $stmt = $conn->prepare($sql);
+        $stmt->bind_param("sd", 
+            $data["nome"],
+            $data["preco"]
+        );
+        return $stmt->execute();
     }
 
-    public static function atualizar($conn) {
-
+    public static function atualizar($conn, $id, $data) {
+        $sql = "UPDATE adicionais SET nome = ?, preco = ? WHERE id = ?";
+        $stmt = $conn->prepare($sql);
+        $stmt->bind_param("siiidii", 
+            $data["nome"],
+            $data["preco"],
+            $id
+        );
+        return $stmt->execute();
     }
 
-    public static function deletar($conn) {
-
+    public static function deletar($conn, $id) {
+        $sql = "DELETE FROM adicionais WHERE id = ?";
+        $stmt = $conn->prepare($sql);
+        $stmt->bind_param("i", $id);
+        return $stmt->execute();
     }
 } 
 

@@ -23,7 +23,7 @@ class QuartoController {
     }
 
     public static function deletar($conn, $id){
-        $delet = quartoModel::deletar($conn, $data);
+        $delet = quartoModel::deletar($conn, $id);
         if ($delet){
             return jsonResponse(['mesage'=>"quarto excluido com sucesso"]);
         }else{

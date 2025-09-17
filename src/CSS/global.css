@@ -126,7 +126,7 @@
 }
 
 .hero {
-  margin-top: 50px; /* Ajuste esse valor conforme a altura da sua navbar */
+  margin-top: 10px; /* Ajuste esse valor conforme a altura da sua navbar */
 }
 
 @media (max-width: 576px) {
