@@ -24,9 +24,6 @@ class AuthController{
             return jsonResponse([
                 "status"=>"erro","message"=>"Credenciais invalidas"],401);
         }
-        
     }
-
-
 }
 ?>

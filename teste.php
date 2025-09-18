@@ -15,7 +15,7 @@ $data = [
 ];
 // QuartoController::criar($conn, $data);
 // QuartoController::listarTodos($conn);
-QuartoController::buscarPorid($conn, "1");
+QuartoController::buscarPorid($conn, "5");
 // QuartoController::atualizar($conn, $data);
 // QuartoController::deletar($conn, "colocar id");
 

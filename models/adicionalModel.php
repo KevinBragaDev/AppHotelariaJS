@@ -14,7 +14,7 @@ class adicionalModel {
         return $stmt->get_result()->fetch_assoc();
     }
 
-    public static function criar($conn) {
+    public static function criar($conn, $data) {
         $sql = "INSERT INTO adicionais (nome, preco)
                 VALUES (?, ?);";
         $stmt = $conn->prepare($sql);
@@ -28,7 +28,7 @@ class adicionalModel {
     public static function atualizar($conn, $id, $data) {
         $sql = "UPDATE adicionais SET nome = ?, preco = ? WHERE id = ?";
         $stmt = $conn->prepare($sql);
-        $stmt->bind_param("siiidii", 
+        $stmt->bind_param("ssi", 
             $data["nome"],
             $data["preco"],
             $id
