@@ -303,5 +303,45 @@ button.plus:hover {
   font-weight: 600;
 }
 
+/*estilo pagina carrinho*/
+
+.table-primary {
+  background-color: #344035; /* azul claro */
+  color: white;
+}
+
+.table-secondary {
+  background-color: #344035; /* cinza claro */
+  color: white;
+}
+
+.table-success {
+  background-color: #344035; /* verde claro */
+  color: white;
+}
+
+.table-danger {
+  background-color: #344035; /* vermelho claro */
+  color: white;
+}
+
+
+
+/* Opcional: bordas e padding para melhorar visual */
+table {
+  border-collapse: collapse;
+  width: 100%;
+}
+
+th, td {
+  border: 1px solid #dee2e6;
+  padding: 8px;
+  text-align: left;
+}
+
+thead th {
+  background-color: #344035;
+  color: white;
+}
 
 
