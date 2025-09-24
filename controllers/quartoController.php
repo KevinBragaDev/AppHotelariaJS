@@ -39,6 +39,14 @@ class QuartoController {
             return jsonResponse(['mesage'=>"erro ao atualizar"]);
         }
     }
+    public static function buscarDisponivel($conn,$data) {
+        $buscDisp = quartoModel:: buscarDisponiveis($conn,$data);
+        if ($buscDisp !== false && !empty($resultado)) {
+            return jsonResponse(['mesage'=>"quartos Disponiveis", 'data'=> $resultado]);
+        } else {
+            return jsonResponse(['mesage'=>"erro ao buscar quartos disponiveis"],404);
+        }
+    }
 }
 
 

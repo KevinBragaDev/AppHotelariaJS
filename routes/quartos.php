@@ -4,14 +4,28 @@
 
     if ($_SERVER['REQUEST_METHOD'] === "GET") {
         $id = $segments[2] ?? null;
+        
+        if ($id === 'disponiveis') {
+        $inicio = $_GET['inicio'] ?? null;
+        $fim = $_GET['fim'] ?? null;
 
-        if (isset($id)) {
+        if ($inicio && $fim) {
+            $data = [
+                'inicio' => $inicio,
+                'fim' => $fim
+            ];
+            quartoController::buscarDisponivel($conn, $data);
+            } else {
+                jsonResponse(["message" => "Parâmetros 'inicio' e 'fim' são obrigatórios."], 400);
+            }
+        } else if (isset($id)) {
             quartoController::buscarPorid($conn, $id);
         } else {
             quartoController::listarTodos($conn);
         }
+    }
 
-    } else if ($_SERVER['REQUEST_METHOD'] === "DELETE") {
+    else if ($_SERVER['REQUEST_METHOD'] === "DELETE") {
         $id = $segments[2] ?? null;
 
         if (isset($id)) {
