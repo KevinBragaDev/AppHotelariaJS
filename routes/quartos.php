@@ -1,54 +1,62 @@
 <?php
 
-    require_once __DIR__ . "/../controllers/quartoController.php";
+require_once __DIR__ . "/../controllers/quartoController.php";
 
-    if ($_SERVER['REQUEST_METHOD'] === "GET") {
-        $id = $segments[2] ?? null;
-        
-        if ($id === 'disponiveis') {
-        $inicio = $_GET['inicio'] ?? null;
-        $fim = $_GET['fim'] ?? null;
+// Supondo que $segments já esteja definido antes com explode("/", $_SERVER['REQUEST_URI']);
+$method = $_SERVER['REQUEST_METHOD'];
+$resource = $segments[3] ?? null; // Ex: 'quartos'
+$param = $segments[2] ?? null;    // Pode ser 'disponiveis' ou o ID, dependendo do caso
 
-        if ($inicio && $fim) {
-            $data = [
-                'inicio' => $inicio,
-                'fim' => $fim
-            ];
-            quartoController::buscarDisponivel($conn, $data);
-            } else {
-                jsonResponse(["message" => "Parâmetros 'inicio' e 'fim' são obrigatórios."], 400);
-            }
-        } else if (isset($id)) {
-            quartoController::buscarPorid($conn, $id);
-        } else {
-            quartoController::listarTodos($conn);
+switch ($method) {
+    case "GET":
+        if ($param === 'disponiveis') {
+            $inicio = isset($_GET['inicio']) ? $_GET['inicio'] : null;
+            $fim = isset($_GET['fim']) ? $_GET['fim'] : null;
+            $capacidade = isset($_GET['capacidade']) ? $_GET['capacidade'] : null;
+             jsonResponse(['message'=>[$inicio, $fim, $capacidade]], 300);
+
+            // if ($inicio && $fim) {
+            //     $data = ['inicio' => $inicio, 'fim' => $fim];
+            //     //quartoController::buscarDisponivel($conn, $data);
+            //     jsonResponse(["message" => "sucesso"]);
+            // } else {
+            //     jsonResponse(["message" => "Parâmetros 'inicio' e 'fim' são obrigatórios."], 400);
+            // }
+        // } elseif ($param) {
+        //     quartoController::buscarPorid($conn, $param);
+        // } else {
+        //     quartoController::listarTodos($conn);
         }
-    }
+        break;
 
-    else if ($_SERVER['REQUEST_METHOD'] === "DELETE") {
+    case "DELETE":
         $id = $segments[2] ?? null;
-
-        if (isset($id)) {
+        if ($id) {
             quartoController::deletar($conn, $id);
         } else {
-            jsonResponse(["message"=>"Id necessario!"], 400);
+            jsonResponse(["message" => "Id necessário!"], 400);
         }
+        break;
 
-    } else if ($_SERVER['REQUEST_METHOD'] === "POST" ) {
-        $data = json_decode( file_get_contents('php://input'), true);
+    case "POST":
+        $data = json_decode(file_get_contents('php://input'), true);
         quartoController::criar($conn, $data);
+        break;
 
-    } else if ($_SERVER['REQUEST_METHOD'] === "PUT") {
-        $data = json_decode( file_get_contents('php://input'), true);
-        $id = $data['id'];
-        quartoController::atualizar($conn, $id, $data);
+    case "PUT":
+        $data = json_decode(file_get_contents('php://input'), true);
+        $id = $data['id'] ?? null;
+        if ($id) {
+            quartoController::atualizar($conn, $id, $data);
+        } else {
+            jsonResponse(["message" => "Id necessário no corpo da requisição!"], 400);
+        }
+        break;
 
-    } else {
+    default:
         jsonResponse([
-        "status"=>"erro",
-        "message"=>"Metodo não permitido"
+            "status" => "erro",
+            "message" => "Método não permitido"
         ], 405);
-    }
-
-
-?>
+        break;
+}

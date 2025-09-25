@@ -40,8 +40,8 @@ class QuartoController {
         }
     }
     public static function buscarDisponivel($conn,$data) {
-        $buscDisp = quartoModel:: buscarDisponiveis($conn,$data);
-        if ($buscDisp !== false && !empty($resultado)) {
+        $resultado = quartoModel:: buscarDisponiveis($conn,$data);
+        if ($resultado !== false && !empty($resultado)) {
             return jsonResponse(['mesage'=>"quartos Disponiveis", 'data'=> $resultado]);
         } else {
             return jsonResponse(['mesage'=>"erro ao buscar quartos disponiveis"],404);

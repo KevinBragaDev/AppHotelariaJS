@@ -69,13 +69,21 @@ class quartoModel {
         FROM
         reservas r
         WHERE
-        (r.inicio >= ? AND r.fim <= ?)
-        );";
+        (r.fim >= ? AND r.inicio <= ?)
+        )
+        AND q.disponivel = true
+        AND ((q.qnt_cama_casal * 2) + q.qnt_cama_solteiro) >= ?;";
+
         $stmt = $conn->prepare($sql);
+
         $inicio = $data['inicio'];
         $fim = $data['fim'];
-        $stmt->bind_param("ss", $fim, $inicio);
+        $capacidade = $data['capacidade'] ?? 1;
+
+        $stmt->bind_param("ssi", $fim, $inicio, $capacidade);
         return $stmt->execute();
+
+        // return $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
     }
 }
 
