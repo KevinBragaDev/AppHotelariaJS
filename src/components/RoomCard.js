@@ -1,30 +1,43 @@
-export default function Card() {
+export default function Card(index) {
 const containerCard = document.createElement('div');
-  containerCard.className = 'card';
+  containerCard.className = 'containerCard';
   containerCard.innerHTML = `
-  <div class="card-content">
-      <div class="carouselCard">
-        <img src="publics/assets/img/suite1.jpg" alt="Imagem 1" class="carousel-image active" />
-        <img src="publics/assets/img/suite2.jpg" alt="Imagem 2" class="carousel-image" />
-        <img src="publics/assets/img/suite3.jpg" alt="Imagem 3" class="carousel-image" />
-      </div>
-      <div class="card-text">
-        <h2>Suíte Luxo</h2>
-        <p>Desfrute do conforto da nossa Suíte Luxo.</p>
-        <button>Reservar</button>
-      </div>
+  <div class="card" style="width: 18rem;">
+
+  <div id="carouselExampleIndicators-${index}" class="carousel slide">
+  <div class="carousel-indicators">
+    <button type="button" data-bs-target="#carouselExampleIndicators-${index}" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+    <button type="button" data-bs-target="#carouselExampleIndicators-${index}" data-bs-slide-to="1" aria-label="Slide 2"></button>
+    <button type="button" data-bs-target="#carouselExampleIndicators-${index}" data-bs-slide-to="2" aria-label="Slide 3"></button>
+  </div>
+  <div class="carousel-inner">
+    <div class="carousel-item active">
+      <img src="publics/assets/img/img1.jpg" class="d-block w-100" alt="...">
     </div>
-  `;
+    <div class="carousel-item">
+      <img src="publics/assets/img/img2.jpg" class="d-block w-100" alt="...">
+    </div>
+    <div class="carousel-item">
+      <img src="publics/assets/img/img3.jpg" class="d-block w-100" alt="...">
+    </div>
+  </div>
+  <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators-${index}" data-bs-slide="prev">
+    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+    <span class="visually-hidden">Previous</span>
+  </button>
+  <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators-${index}" data-bs-slide="next">
+    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+    <span class="visually-hidden">Next</span>
+  </button>
+</div>
 
-   // Carrossel simples: troca imagens a cada 3 segundos
-  const images = containerCard.querySelectorAll('.carousel-image');
-  let currentIndex = 0;
 
-  setInterval(() => {
-    images[currentIndex].classList.remove('active');
-    currentIndex = (currentIndex + 1) % images.length;
-    images[currentIndex].classList.add('active');
-  }, 3000);
-
+  <div class="card-body">
+    <h5 class="card-title">Card title</h5>
+    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card’s content.</p>
+    <a href="#" class="btn btn-primary">Go somewhere</a>
+  </div>
+</div> `
   return containerCard;
+
 }

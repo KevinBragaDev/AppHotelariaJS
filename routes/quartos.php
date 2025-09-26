@@ -10,22 +10,23 @@ $param = $segments[2] ?? null;    // Pode ser 'disponiveis' ou o ID, dependendo 
 switch ($method) {
     case "GET":
         if ($param === 'disponiveis') {
-            $inicio = isset($_GET['inicio']) ? $_GET['inicio'] : null;
-            $fim = isset($_GET['fim']) ? $_GET['fim'] : null;
-            $capacidade = isset($_GET['capacidade']) ? $_GET['capacidade'] : null;
-             jsonResponse(['message'=>[$inicio, $fim, $capacidade]], 300);
+              $inicio = isset($_GET['inicio']) ? $_GET['inicio'] : null;
+              $fim = isset($_GET['fim']) ? $_GET['fim'] : null;
+              $capacidade = isset($_GET['capacidade']) ? $_GET['capacidade'] : null;
+              // jsonResponse(['message'=>[$inicio, $fim, $capacidade]], 300);
 
-            // if ($inicio && $fim) {
-            //     $data = ['inicio' => $inicio, 'fim' => $fim];
-            //     //quartoController::buscarDisponivel($conn, $data);
-            //     jsonResponse(["message" => "sucesso"]);
-            // } else {
-            //     jsonResponse(["message" => "Parâmetros 'inicio' e 'fim' são obrigatórios."], 400);
-            // }
-        // } elseif ($param) {
-        //     quartoController::buscarPorid($conn, $param);
-        // } else {
-        //     quartoController::listarTodos($conn);
+            if ($inicio && $fim && $capacidade) {
+                $data = ['inicio' => $inicio, 'fim' => $fim, 'capacidade' => $capacidade];
+                $resultados = quartoController::buscarDisponivel($conn, $data);
+                jsonResponse(["message" => "quartos disponiveis",
+                "data" => $resultados]);
+            } else {
+                jsonResponse(["message" => "Parâmetros 'inicio' e 'fim' são obrigatórios."], 400);
+            }
+         } elseif ($param) {
+             quartoController::buscarPorid($conn, $param);
+         } else {
+             quartoController::listarTodos($conn);
         }
         break;
 

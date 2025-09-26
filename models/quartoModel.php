@@ -81,8 +81,14 @@ class quartoModel {
         $capacidade = $data['capacidade'] ?? 1;
 
         $stmt->bind_param("ssi", $fim, $inicio, $capacidade);
-        return $stmt->execute();
+        $stmt->execute();
+        $result = $stmt->get_result();
+        $quartos = [];
+         while ($row = $result->fetch_assoc()) {
+        $quartos[] = $row;
+    }
 
+    return $quartos;
         // return $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
     }
 }

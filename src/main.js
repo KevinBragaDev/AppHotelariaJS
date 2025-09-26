@@ -14,9 +14,11 @@ const routes = {
 //Obtem o caminho atual a partir do nome
 function getPath() {
     // Exemplo: Obtem "/login"
-    const url = (location.pathname || "").replace("/paginaWeb/", "/").trim();
+    const url = (location.pathname || "").replace("/PaginaWeb/", "/").trim();
     //retorna url se começar com "/", se nao, retorna "/home" como padrao
+    console.log(url);
     return url && url.startsWith("/") ? url : "/home";
+ 
 }
 
 //Decide o que renderizar com base na rota atual

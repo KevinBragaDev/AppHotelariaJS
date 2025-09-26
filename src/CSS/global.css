@@ -30,81 +30,14 @@
     transform: scale(1.03);
 }
 
-/*Card*/
-.card {
-  max-width: 700px;
-  margin: 40px auto;
-  background-color: #fff;
-  border-radius: 10px;
-  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
-  padding: 20px;
-}
 
-.card-content {
-  display: flex;
-  align-items: center;
-  gap: 20px;
-}
-
-.card-content img {
-  width: 150px;
-  height: 150px;
-  object-fit: cover;
-  border-radius: 8px;
-}
-
-.card-text {
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-}
-
-.card-text h2 {
-  margin-top: 0;
-}
-
-.card-text button {
-  margin-top: auto; /* empurra o botão para o final do bloco */
-  align-self: flex-end; /* alinha o botão à direita */
-  padding: 10px 20px;
-  background-color: #007bff;
-  color: white;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-}
-
-.card-text button:hover {
-  background-color: #0056b3;
-}
 
 #root {
   flex-direction: column;
-  margin-bottom: 10vh;
+  gap: 5vh;
+  margin-bottom: 5vh;
 }
 
-/*Carrossel do card*/
-.carouselCard {
-  position: relative;
-  width: 150px;
-  height: 150px;
-  overflow: hidden;
-  border-radius: 8px;
-  flex-shrink: 0;
-}
-
-.carousel-image {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 150px;
-  height: 150px;
-  object-fit: cover;
-  opacity: 0;
-  transition: opacity 0.5s ease-in-out;
-  border-radius: 8px;
-}
 
 .carousel-image.active {
   opacity: 1;
@@ -118,7 +51,7 @@
     
 }
 
-.hero-img, .hero {
+.hero img  {
     /*Aplica propritedade cover para que a imagem preecha o quadro*/
     object-fit: cover;
     object-position: center;
@@ -130,7 +63,7 @@
 }
 
 @media (max-width: 576px) {
-    .hero-img, .hero {
+    .hero img  {
         height: 50vh;
     }
 }
@@ -306,22 +239,22 @@ button.plus:hover {
 /*estilo pagina carrinho*/
 
 .table-primary {
-  background-color: #344035; /* azul claro */
+  background-color: #344035 !important; /* azul claro */
   color: white
 }
 
 .table-secondary {
-  background-color: #344035; /* cinza claro */
+  background-color: #344035 !important; /* cinza claro */
   color: white;
 }
 
 .table-success {
-  background-color: #344035; /* verde claro */
+  background-color: #344035 !important; /* verde claro */
   color: white;
 }
 
 .table-danger {
-  background-color: #344035; /* vermelho claro */
+  background-color: #344035 !important; /* vermelho claro */
   color: white;
 }
 
@@ -345,3 +278,14 @@ thead th {
 }
 
 
+.cards {
+  display: flex;
+  justify-content: center;
+  gap: 8vh;
+}
+
+.containerCard img {
+    object-fit: cover;
+    object-position: center;
+    height: 20vh;
+}
