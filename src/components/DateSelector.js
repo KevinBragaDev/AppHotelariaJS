@@ -3,13 +3,11 @@ export default function dateContainer() {
     DateContainer.className = 'p-4 shadow-lg date-container';
 
     const regiao = document.createElement('input');
-        regiao.type = 'search';
-        regiao.placeholder = "Onde voce esta indo?";
+        regiao.type = 'date';
         DateContainer.appendChild(regiao);
 
     const data = document.createElement('input');
         data.type = 'date';
-        data.placeholder = "Data de check-in";
         DateContainer.appendChild(data);
 
     

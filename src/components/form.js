@@ -6,10 +6,11 @@ export default function Form() {
     divRoot.style.height = '100vh';
 
     const container = document.createElement('div');
-    container.className = 'card p-4 shadow-lg';
+    container.className = 'card p-4 shadow-lg formDiv';
     container.style.width = '100%';
     container.style.maxWidth = '500px';
     container.style.marginTop = '-300px';
+
     divRoot.appendChild(container);
 
     const titulo = document.createElement('h1');
@@ -20,10 +21,10 @@ export default function Form() {
     formulario.className = 'd-flex flex-column';
 
 
-    const email = document.createElement('input');
-    email.type = 'email';
-    email.placeholder = "Digite seu e-mail";
-    formulario.appendChild(email);
+    const inputEmail = document.createElement('input');
+    inputEmail.type = 'email';
+    inputEmail.placeholder = "Digite seu e-mail";
+    formulario.appendChild(inputEmail);
 
 
     const password = document.createElement('input');

@@ -1,6 +1,7 @@
 import Form from "../components/form.js";
 import Navbar from "../components/Navbar.js";
 import Footer from "../components/footer.js";
+import { createRequest } from "../api/clientesAPI.js";
 
 export default function renderRegisterPage() {
     
@@ -19,14 +20,26 @@ export default function renderRegisterPage() {
    const contentForm = formulario.querySelector('form');
     
    //Crio o input para nome e adiciono em contentForm
-   const nome = document.createElement('input');
-   nome.type = 'text';
-   nome.placeholder = "Digite seu nome";
+   const inputNome = document.createElement('input');
+   inputNome.type = 'text';
+   inputNome.placeholder = "Digite seu nome";
+
+   const Inputcpf = document.createElement('input');
+    Inputcpf.type = 'text';
+    Inputcpf.placeholder = "Digite seu CPF";
+
+    const inputTelefone = document.createElement('input');
+    inputTelefone.type = 'text';
+    inputTelefone.placeholder = "Digite seu telefone";
     
    /*Para adicionar input nome ao contentForm, localizo onde está input email pois 
    quero necessariamente adicionar anteriormente a ele */
    const inputEmail = formulario.querySelector('input[type="email"]');
-   contentForm.insertBefore(nome, inputEmail);
+   contentForm.insertBefore(inputNome, inputEmail);
+
+    contentForm.insertBefore(inputNome, inputEmail);
+    contentForm.insertBefore(Inputcpf, contentForm.children[1]);
+    contentForm.insertBefore(inputTelefone, contentForm.children[2]);
 
    const confSenha = document.createElement('input');
    confSenha.type = 'password';
@@ -37,10 +50,26 @@ export default function renderRegisterPage() {
     button btn[3] ao adicionar conftSenha antes de btn[3] 
     portanto utilizar inserBefore() e identificar a posição */
 
-   contentForm.insertBefore(confSenha, contentForm.children[3]);
+   contentForm.insertBefore(confSenha, contentForm.children[5]);
 
    const btnRegister = formulario.querySelector('button');
    btnRegister.textContent = "Criar conta"; 
-
    Footer();
+
+   contentForm.addEventListener("submit", async (e) => {
+      e.preventDefault();
+      const nome = inputNome.value.trim();
+      const cpf = Inputcpf.value.trim();
+      const telefone = inputTelefone.value.trim();
+      const email = inputEmail.value.trim();
+      const password = inputNome.value.trim();
+   
+
+      try {
+      const result = createRequest(nome, cpf, telefone, email, password);
+      }
+      catch{
+         console.log("Erro inesperado!");
+      }
+   });
 }

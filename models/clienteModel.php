@@ -1,4 +1,6 @@
 <?php
+require_once __DIR__."/../controllers/passwordController.php";
+
 class clienteModel {
     public static function listarTodos($conn) {
          $sql = "SELECT * FROM clientes";
@@ -50,6 +52,23 @@ class clienteModel {
         $stmt->bind_param("i", $id);
         return $stmt->execute();
     
+    }
+
+    public static function validateCliente($conn, $email, $password) {
+        $sql = "SELECT c.id,c.nome,c.email,c.senha,cargos.nome AS cargos
+	            FROM clientes as c JOIN cargos ON cargos.id = c.id_cargo WHERE c.email = ?";
+        $stmt = $conn-> prepare($sql);
+        $stmt->bind_param("s", $email);
+        $stmt->execute();
+        $result = $stmt->get_result();
+
+        if($user = $result->fetch_assoc()) {
+            if(PasswordController::validateHash($password,$user['senha'])) {
+                unset($user['senha']);
+                return $user;
+            }
+        }
+        return false;
     }
 }
 
