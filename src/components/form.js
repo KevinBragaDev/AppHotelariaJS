@@ -6,12 +6,20 @@ export default function Form() {
     divRoot.style.height = '100vh';
 
     const container = document.createElement('div');
-    container.className = 'card p-4 shadow-lg formDiv';
+    container.className = 'card p-4 shadow-lg ';
     container.style.width = '100%';
     container.style.maxWidth = '500px';
     container.style.marginTop = '-300px';
 
-    divRoot.appendChild(container);
+    const container2 = document.createElement('div');
+    container2.className = 'container2';
+    container2.style.display = 'flex';
+    container2.style.justifyContent = 'center';
+    container2.style.alignItems = 'center';
+
+    container2.appendChild(container)
+
+    divRoot.appendChild(container2);
 
     const titulo = document.createElement('h1');
     titulo.textContent = 'Faça seu login';
@@ -27,10 +35,10 @@ export default function Form() {
     formulario.appendChild(inputEmail);
 
 
-    const password = document.createElement('input');
-    password.type = 'password';
-    password.placeholder = "Digite sua senha";
-    formulario.appendChild(password);
+    const inputPassword = document.createElement('input');
+    inputPassword.type = 'password';
+    inputPassword.placeholder = "Digite sua senha";
+    formulario.appendChild(inputPassword);
 
     const btn = document.createElement('button');
     btn.type = 'submit';

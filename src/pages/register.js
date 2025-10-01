@@ -41,16 +41,16 @@ export default function renderRegisterPage() {
     contentForm.insertBefore(Inputcpf, contentForm.children[1]);
     contentForm.insertBefore(inputTelefone, contentForm.children[2]);
 
-   const confSenha = document.createElement('input');
-   confSenha.type = 'password';
-   confSenha.placeholder = "Confirme sua senha";
+   const inputPassword = document.createElement('input');
+   inputPassword.type = 'password';
+   inputPassword.placeholder = "Confirme sua senha";
 
     /*Adicionar confSenha como "child" de form que já contem
     4 elementos: input nome[0] input email[1] input password[2]
     button btn[3] ao adicionar conftSenha antes de btn[3] 
     portanto utilizar inserBefore() e identificar a posição */
 
-   contentForm.insertBefore(confSenha, contentForm.children[5]);
+   contentForm.insertBefore(inputPassword, contentForm.children[5]);
 
    const btnRegister = formulario.querySelector('button');
    btnRegister.textContent = "Criar conta"; 
@@ -62,7 +62,7 @@ export default function renderRegisterPage() {
       const cpf = Inputcpf.value.trim();
       const telefone = inputTelefone.value.trim();
       const email = inputEmail.value.trim();
-      const password = inputNome.value.trim();
+      const password = inputPassword.value.trim();
    
 
       try {

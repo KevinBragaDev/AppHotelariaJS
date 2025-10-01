@@ -17,16 +17,15 @@ class clienteModel {
     }
 
     public static function criar($conn,$data) {
-        $sql = "INSERT INTO clientes (nome,email,telefone,cpf,senha,id_cargo)
-                VALUES (?, ?, ?, ?, ?, ?);";
+        $sql = "INSERT INTO clientes (nome,email,telefone,cpf,senha)
+                VALUES (?, ?, ?, ?, ?);";
         $stmt = $conn->prepare($sql);
-        $stmt->bind_param("sssssi",
+        $stmt->bind_param("sssss",
             $data["nome"],
             $data["email"],
             $data["telefone"],
             $data["cpf"],
-            $data["senha"],
-            $data["cargo"]
+            $data["senha"]
         );
         return $stmt->execute();
     }
