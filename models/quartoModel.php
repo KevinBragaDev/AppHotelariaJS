@@ -76,11 +76,14 @@ class quartoModel {
 
         $stmt = $conn->prepare($sql);
 
-        $inicio = $data['inicio'];
-        $fim = $data['fim'];
-        $capacidade = $data['capacidade'] ?? 1;
+        $stmt->bind_param("ssi", 
 
-        $stmt->bind_param("ssi", $fim, $inicio, $capacidade);
+        $data['inicio'],
+        $data['fim'],
+        $data['capacidade' ?? 1] 
+
+        );
+
         $stmt->execute();
         $result = $stmt->get_result();
         $quartos = [];

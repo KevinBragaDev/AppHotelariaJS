@@ -289,3 +289,12 @@ thead th {
     object-position: center;
     height: 20vh;
 }
+
+
+
+.checkin-group {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+

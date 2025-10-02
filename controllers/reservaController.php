@@ -1,9 +1,14 @@
 <?php
 
 require_once __DIR__ . "/../models/reservaModel.php";
-
+require_once "validateController";
 class reservaController {
     public static function criar($conn, $data) {
+        validateController::validate_data($data,["pedido_id", "quarto_id", "adicional_id", "inicio", "fim"])
+
+        $data["inicio"] = validateController::fix_datehour($data["inicio",14])
+        $data["fim"] = validateController::fix_datehour($data["fim",12])
+
         $result = reservaModel::criar($conn, $data);
         if ($result) {
             return jsonResponse(['message'=>"reserva criado com sucesso"]);

@@ -2,17 +2,8 @@ export default function dateContainer() {
     const DateContainer = document.createElement('div');
     DateContainer.className = 'p-4 shadow-lg date-container';
 
-    const regiao = document.createElement('input');
-        regiao.type = 'date';
-        DateContainer.appendChild(regiao);
-
-    const data = document.createElement('input');
-        data.type = 'date';
-        DateContainer.appendChild(data);
-
     
     const pessoasGroup = document.createElement('div');
-    
         pessoasGroup.innerHTML = `
     <div class="combo-box">
   <button class="combo-button" type="button" aria-haspopup="listbox" aria-expanded="false">
@@ -40,8 +31,16 @@ export default function dateContainer() {
   </div>
 </div>
         `;
-        
-            DateContainer.appendChild(pessoasGroup);
+
+    const checkIn = document.createElement('input');
+        checkIn.type = 'date';
+        DateContainer.appendChild(checkIn);
+
+    const checkOut = document.createElement('input');
+        checkOut.type = 'date';
+        DateContainer.appendChild(checkOut);
+
+    DateContainer.appendChild(pessoasGroup);
 
     const botao = document.createElement('button');
         botao.type = 'submit';

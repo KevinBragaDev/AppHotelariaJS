@@ -1,5 +1,6 @@
 <?php
 require_once __DIR__ ."/../controllers/authController.php";
+require_once __DIR__."/../helpers/token_jwt.php";
 
 if ($_SERVER['REQUEST_METHOD'] === "POST" ) {
     $opcao = $segments[2] ?? null;
@@ -14,8 +15,13 @@ if ($_SERVER['REQUEST_METHOD'] === "POST" ) {
         jsonResponse(['status' => 'erro', 
         'message' => 'rota nao existe'], 405);
     }
+}
+    else if ($_SERVER['REQUEST_METHOD'] === "PUT" ) {
+        validateTokenAPI();
+        jsonResponse(["message"=>"deu certo"],200);
+    }
 
-} else {
+ else {
     jsonResponse([
         'status'=>"Erro",
         'message'=>'Método não permitido'
