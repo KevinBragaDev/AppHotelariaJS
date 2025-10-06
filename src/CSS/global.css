@@ -86,7 +86,6 @@
   position: relative;
 }
 
-.date-container input[type="search"],
 .date-container input[type="date"],
 .date-container .combo-button,
 .date-container button[type="submit"] {
@@ -95,21 +94,22 @@
   height: 38px;
   padding: 8px 12px;
   font-size: 14px;
-  border: 1px solid #ccc;
+  text-align: center;
   border-radius: 6px;
   font-family: inherit;
-  line-height: 1;
+  
   box-sizing: border-box;
   vertical-align: middle;
   margin: 0;
 }
 
-.date-container input[type="search"] {
-  width: 200px;
+.date-container select {
+  height: 38px;
 }
 
 .date-container input[type="date"] {
   width: 150px;
+
 }
 
 .date-container .combo-box {
@@ -125,7 +125,7 @@
   cursor: pointer;
   white-space: nowrap;
   transition: background-color 0.3s ease;
-  padding: 10px 29px;
+  padding: 10px 20px;
   
   
 }
@@ -296,5 +296,12 @@ thead th {
   display: flex;
   flex-direction: column;
   gap: 4px;
+}
+
+.divDate {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+   
 }
 

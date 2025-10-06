@@ -80,7 +80,7 @@ class quartoModel {
 
         $data['inicio'],
         $data['fim'],
-        $data['capacidade' ?? 1] 
+        $data['qtd' ?? 1] 
 
         );
 

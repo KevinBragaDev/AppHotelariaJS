@@ -12,11 +12,11 @@ switch ($method) {
         if ($param === 'disponiveis') {
               $inicio = isset($_GET['inicio']) ? $_GET['inicio'] : null;
               $fim = isset($_GET['fim']) ? $_GET['fim'] : null;
-              $capacidade = isset($_GET['capacidade']) ? $_GET['capacidade'] : null;
+              $qtd = isset($_GET['qtd']) ? $_GET['qtd'] : null;
               // jsonResponse(['message'=>[$inicio, $fim, $capacidade]], 300);
 
-            if ($inicio && $fim && $capacidade) {
-                $data = ['inicio' => $inicio, 'fim' => $fim, 'capacidade' => $capacidade];
+            if ($inicio && $fim && $qtd) {
+                $data = ['inicio' => $inicio, 'fim' => $fim, 'qtd' => $qtd];
                 $resultados = quartoController::buscarDisponivel($conn, $data);
                 jsonResponse(["message" => "quartos disponiveis",
                 "data" => $resultados]);

@@ -1,101 +1,32 @@
 export default function dateContainer() {
     const DateContainer = document.createElement('div');
     DateContainer.className = 'p-4 shadow-lg date-container';
-
-    
-    const pessoasGroup = document.createElement('div');
-        pessoasGroup.innerHTML = `
-    <div class="combo-box">
-  <button class="combo-button" type="button" aria-haspopup="listbox" aria-expanded="false">
-    Adultos - 0, Crianças - 0, Quartos - 1
-  </button>
-  <div class="combo-dropdown" hidden>
-    <div class="item">
-      <span>Adultos</span>
-      <button class="minus" data-target="adultos">-</button>
-      <span class="number" id="adultos">0</span>
-      <button class="plus" data-target="adultos">+</button>
-    </div>
-    <div class="item">
-      <span>Crianças</span>
-      <button class="minus" data-target="criancas">-</button>
-      <span class="number" id="criancas">0</span>
-      <button class="plus" data-target="criancas">+</button>
-    </div>
-    <div class="item">
-      <span>Quartos</span>
-      <button class="minus" data-target="quartos">-</button>
-      <span class="number" id="quartos">1</span>
-      <button class="plus" data-target="quartos">+</button>
-    </div>
-  </div>
-</div>
-        `;
-
-    const checkIn = document.createElement('input');
-        checkIn.type = 'date';
-        DateContainer.appendChild(checkIn);
-
-    const checkOut = document.createElement('input');
-        checkOut.type = 'date';
-        DateContainer.appendChild(checkOut);
-
-    DateContainer.appendChild(pessoasGroup);
-
-    const botao = document.createElement('button');
-        botao.type = 'submit';
-        botao.textContent = "Entrar";
-        DateContainer.appendChild(botao);
-
-        const comboBox = pessoasGroup.querySelector('.combo-box');
-const button = comboBox.querySelector('.combo-button');
-const dropdown = comboBox.querySelector('.combo-dropdown');
-
-const counts = {
-  adultos: 0,
-  criancas: 0,
-  quartos: 1
-};
-
-function updateButtonLabel() {
-  button.textContent = `Adulto - ${counts.adultos} Criança - ${counts.criancas} Quarto - ${counts.quartos}`;
-
-}
-
-button.addEventListener('click', () => {
-  const expanded = button.getAttribute('aria-expanded') === 'true';
-  button.setAttribute('aria-expanded', String(!expanded));
-  dropdown.hidden = expanded;
-});
-
-dropdown.querySelectorAll('button.plus').forEach(btn => {
-  btn.addEventListener('click', () => {
-    const target = btn.getAttribute('data-target');
-    counts[target]++;
-    updateDropdownNumber(target);
-    updateButtonLabel();
-  });
-});
-
-dropdown.querySelectorAll('button.minus').forEach(btn => {
-  btn.addEventListener('click', () => {
-    const target = btn.getAttribute('data-target');
-    if (counts[target] > (target === 'quartos' ? 1 : 0)) { // quartos min 1
-      counts[target]--;
-      updateDropdownNumber(target);
-      updateButtonLabel();
-    }
-  });
-});
-
-function updateDropdownNumber(target) {
-  dropdown.querySelector(`#${target}`).textContent = counts[target];
-}
-
-updateButtonLabel();
-
-
+    const dateCheckIn = document.createElement('input');
+    dateCheckIn.type = 'date';
+    dateCheckIn.className = 'card p-3 shadow-lg inputDate';
+    const dateCheckOut = document.createElement('input');
+    dateCheckOut.type = 'date';
+    dateCheckOut.className = 'card p-3 shadow-lg inputDate';
+    const guestAmount = document.createElement('select');
+    guestAmount.className = 'card p-3 shadow-lg inputDate';
+    guestAmount.innerHTML =
+    `
+    <option value="">Quantas Pessoas?</option>
+    <option value="1">1 pessoa</option>
+    <option value="2">2 pessoas</option>
+    <option value="3">3 pessoas</option>
+    <option value="4">4 pessoas</option>
+    <option value="5">5 ou mais pessoas</option>`;
+    const btnSearchRoom = document.createElement('button');
+    btnSearchRoom.type = 'submit';
+    btnSearchRoom.textContent = 'Pesquisar';
+    btnSearchRoom.className = 'btn btn-primary';
+    DateContainer.appendChild(dateCheckIn);
+    DateContainer.appendChild(dateCheckOut);
+    DateContainer.appendChild(guestAmount);
+    DateContainer.appendChild(btnSearchRoom);
     return DateContainer;
+
 }
 
 
