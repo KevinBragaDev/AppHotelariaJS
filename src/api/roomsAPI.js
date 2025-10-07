@@ -46,7 +46,7 @@ export async function listAvailableRoomsRequest({ inicio, fim, qtd }) {
         const msg = data?.message || "Falha ao buscar quartos disponíveis!";
         throw new Error(msg);
     }
-    const quartos = Array.isArray(data?.Quartos) ? data.Quartos : [];
+    const quartos = Array.isArray(data?.quartos) ? data.quartos : [];
     console.log(quartos);
     return quartos;
 }
