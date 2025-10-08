@@ -91,7 +91,7 @@
 .date-container button[type="submit"] {
   display: inline-flex;
   align-items: center;
-  height: 38px;
+  height: 55px;
   padding: 8px 12px;
   font-size: 14px;
   text-align: center;
@@ -103,13 +103,14 @@
   margin: 0;
 }
 
-.date-container select {
-  height: 38px;
-}
 
 .date-container input[type="date"] {
   width: 150px;
 
+}
+
+.date-container select {
+height: 55px;
 }
 
 .date-container .combo-box {
@@ -280,10 +281,28 @@ thead th {
 
 .cards {
   display: flex;
-  flex-direction: wrap;
+  flex-wrap: wrap;
   justify-content: center;
-  align-items: center;
-  gap: 8vh;
+  align-items: flex-start;
+  gap: 2rem;
+  padding: 1rem;
+}
+
+.containerCard {
+    margin: 0.5rem;
+    flex: 0 0 auto;
+}
+
+.containerCard .card {
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+    overflow: hidden;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.containerCard .card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
 }
 
 .containerCard img {
@@ -305,5 +324,94 @@ thead th {
     justify-content: center;
     gap: 15px;
    
+}
+
+/* Estilos para o Modal */
+.modal-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1055;
+}
+
+.modal {
+    display: block !important;
+    background-color: rgba(0, 0, 0, 0.5);
+}
+
+.modal-dialog {
+    margin: 1.75rem auto;
+    max-width: 500px;
+}
+
+.modal-content {
+    border: none;
+    border-radius: 10px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+}
+
+.modal-header {
+    background-color: #344035;
+    color: white;
+    border-radius: 10px 10px 0 0;
+    border-bottom: none;
+}
+
+.modal-title {
+    font-weight: 600;
+    font-size: 1.25rem;
+}
+
+.btn-close {
+    filter: invert(1);
+}
+
+.modal-body {
+    padding: 1.5rem;
+    font-size: 1rem;
+    line-height: 1.5;
+}
+
+.modal-body ul {
+    margin-top: 1rem;
+    padding-left: 1.5rem;
+}
+
+.modal-body li {
+    margin-bottom: 0.5rem;
+    color: #666;
+}
+
+.modal-footer {
+    border-top: 1px solid #dee2e6;
+    padding: 1rem 1.5rem;
+    background-color: #f8f9fa;
+    border-radius: 0 0 10px 10px;
+}
+
+/* Estilos para o Spinner */
+.spinner-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 2rem;
+    background-color: #f8f9fa;
+    border-radius: 10px;
+    margin: 1rem 0;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.spinner-border {
+    border-width: 0.3em;
+}
+
+.spinner-container p {
+    margin: 0;
+    font-size: 1.1rem;
+    font-weight: 500;
+    color: #6c757d;
 }
 
