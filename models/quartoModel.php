@@ -94,6 +94,18 @@ class quartoModel {
     return $quartos;
         // return $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
     }
+
+    public static function blockById($conn,$id) {
+        $sql = "SELECT id FROM quartos WHERE id = ? FOR UPDATE;";
+        $stmt = $conn->prepare($sql);
+        $stmt->bind_param("i", $id);
+        $stmt->execute();
+        $result = stmt->get_result();
+
+        $row = $result && $result ->num_rows >0;
+        $stmt->close();
+        return $row;
+    }
 }
 
 ?>
