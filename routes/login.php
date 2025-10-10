@@ -11,6 +11,9 @@ if ($_SERVER['REQUEST_METHOD'] === "POST" ) {
     }
     else if ($opcao ==="employee"){
         AuthController::login($conn, $data);
+    }
+    else if ($opcao ==="universal"){
+        AuthController::universalLogin($conn, $data);
     } else {
         jsonResponse(['status' => 'erro', 
         'message' => 'rota nao existe'], 405);

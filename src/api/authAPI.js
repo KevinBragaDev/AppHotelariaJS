@@ -1,21 +1,14 @@
 export async function loginRequest(email, senha) {
     const dados = {email, password: senha};
 
-
-    const response = await fetch ("api/login/client", {
+    // Tenta primeiro como cliente
+    let response = await fetch ("api/login/client", {
         method: "POST",
         headers: {
             "Accept":"application/json",
             "Content-Type": "application/json"
         },
          body:JSON.stringify(dados),
-        //body: new URLSearchParams({ "email":email, "password":senha }).toString(),
-
-        /* URL da requisição é a mesma da origem do front (mesmo protocolo http/
-        mesmo dominio - local/mesma porta 80 do servidor web apache)
-        Front: http://localhost/PaginaWeb/public/index.html 
-        Back: http://localhost/PaginaWeb/api/login.php 
-        */
        credentials: "same-origin"
     });
        
@@ -25,20 +18,50 @@ export async function loginRequest(email, senha) {
         data = await response.json();
     }
     catch{
-        // Se nao for JSON valido, data permanece null
         data = null;
     }
     
-    if (!data || !data.token) {
-        const message = "Resposta invalida do servidor. Token ausente";
-        return {ok: false, token: null, raw: data, message};
+    // Se o login como cliente foi bem-sucedido, retorna o resultado
+    if (data && data.token) {
+        return {
+            ok: true,
+            token: data.token,
+            raw: data,
+            userType: 'client'
+        };
     }
 
-    return {
-        ok: true,
-        token: data.token,
-        raw: data
-    }    
+    // Se não funcionou como cliente, tenta como employee
+    response = await fetch ("api/login/employee", {
+        method: "POST",
+        headers: {
+            "Accept":"application/json",
+            "Content-Type": "application/json"
+        },
+         body:JSON.stringify(dados),
+       credentials: "same-origin"
+    });
+       
+    //Interpreta a resposta como JSON
+    try {
+        data = await response.json();
+    }
+    catch{
+        data = null;
+    }
+    
+    if (data && data.token) {
+        return {
+            ok: true,
+            token: data.token,
+            raw: data,
+            userType: 'employee'
+        };
+    }
+
+    // Se nenhum dos dois funcionou, retorna erro
+    const message = "Credenciais inválidas ou usuário não encontrado";
+    return {ok: false, token: null, raw: data, message};
 }
 /*Função para salvar a chave token apos autenticação confirmada,
 ao salvar no local storage, o ususario podera mudar de pagina, fechar

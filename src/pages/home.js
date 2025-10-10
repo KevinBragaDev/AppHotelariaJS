@@ -6,6 +6,7 @@ import DateSelector from "../components/DateSelector.js";
 import { listAvailableRoomsRequest } from "../api/roomsAPI.js";
 import Modal from "../components/Modal.js";
 import Spinner from "../components/Spinner.js";
+import CardLounge from "../components/cardLounge.js";
 
 // Função para mostrar modal de erro de data
 function showDateErrorModal() {
@@ -62,6 +63,18 @@ export default function renderHomePage() {
     Divcard.className = 'cards';
     Divcard.id = 'card-result';
 
+    /*path: é o nome do arquivo que esta em assets/img */
+    const loungeItems = [
+        {path: "restaurante.jpg", title: "Restaurante", text: "Nosso restaurante é um espaço agradavel e familiar!"},
+        {path: "spa.jpg", title: "SPA", text: "Nosso SPA é ideal para momentos de relaxamento!"},
+        {path: "bar.jpg", title: "Bar", text: "Nosso bar oferece drinks sem metanol, confia!"}
+    ];
+    //Percorre a array loungeItems
+    for (let i = 0; i < loungeItems.length; i++) {
+        const cardLoungeElement = CardLounge (loungeItems[i], i);
+        Divcard.appendChild(cardLoungeElement);
+    }
+
 
     btnSearchRoom.addEventListener("click", async (e) => {
         e.preventDefault();
@@ -100,7 +113,6 @@ export default function renderHomePage() {
         console.log("Buscando quartos disponíveis...");
         
         // Mostrar spinner de loading
-        Divcard.innerHTML = '';
         const spinnerElement = Spinner();
         Divcard.appendChild(spinnerElement);
 
