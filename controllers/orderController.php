@@ -1,5 +1,5 @@
 <?php
-    require_once __DIR__ . "/../controllers/validateController.php";
+    require_once "validateController.php";
     require_once __DIR__ . "/../models/orderModel.php";
 
     class orderController {

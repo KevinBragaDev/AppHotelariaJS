@@ -13,14 +13,16 @@ if ($_SERVER['REQUEST_METHOD'] === "GET") {
 
 } 
 
-if ($_SERVER['REQUEST_METHOD'] === "POST" ) {
+else if ($_SERVER['REQUEST_METHOD'] === "POST" ) {
     $opcao = $segments[2] ?? null;
     $data = json_decode( file_get_contents('php://input'), true);
+
     if ($opcao === "reserva") {
         orderController::createOrder($conn, $data);
     } else {
         orderController::criar($conn, $data);
     }
+    
 } else {
     jsonResponse([
     "status"=>"erro",

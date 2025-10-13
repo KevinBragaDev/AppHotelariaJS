@@ -1,5 +1,6 @@
 <?php
 require_once "quartoModel.php";
+require_once "reservaModel.php";
 
 class orderModel {
     public static function listarTodos($conn) {
@@ -17,16 +18,16 @@ class orderModel {
     
     }
 
-    public static function criar($conn) {
+    public static function criar($conn, $data) {
         $sql = "INSERT INTO pedidos (usuario_id, cliente_id, pagamento)
-                VALUES (?, ?, ?);";
+                VALUES (?, ?, ?)";
         $stmt = $conn->prepare($sql);
         $stmt->bind_param("iis",
             $data["usuario_id"],
             $data["cliente_id"],
             $data["pagamento"]
         );
-        return $stmt->execute();
+        $resultado = $stmt->execute();
         if ($resultado){
             return $conn->insert_id;
         }
@@ -36,16 +37,16 @@ class orderModel {
     public static function createOrder($conn, $data) {
         $cliente_id = $data ['cliente_id'];
         $pagamento = $data ['pagamento'];
-        $usuario_id = isset($data ['usuario_id']);
+        $usuario_id = $data ['usuario_id'];
         $reservas = [];
         $reservou = false;
 
         $conn->begin_transaction(MYSQLI_TRANS_START_READ_WRITE);
 
         try {
-            $order_id = self::create($conn, [
+            $order_id = self::criar($conn, [
                 "usuario_id"=> $usuario_id,
-                "cliente_id"=> $pagamento,
+                "cliente_id"=> $cliente_id,
                 "pagamento"=> $pagamento
             ]);
             if(!$order_id) {
@@ -65,27 +66,39 @@ class orderModel {
                 para avaliar se o quarto esta disponivel
                 no intervalo de datas
                 reservaModel::isConflict(); */
+
                 $reserverResult = reservaModel::create($conn,[
-                    "pedidoID" => $order_id,
-                    "quartoID" => $id,
-                    "adicionalID" => null,
+                    "pedido_id" => $order_id,
+                    "quarto_id" => $id,
+                    "adicional_id" => null,
                     "fim" => $fim,
-                    "inicio" => $inicio;
+                    "inicio" => $inicio,
                 ]);
                 $reservou = true;
                 $reservas[] = [
-                    "reserva_id" =>$order_id,
-                    "reservas"=> $reservas,
-                    "message"
-                ]
-
+                    "reserva_id" => $conn->insert_id,
+                    "quarto_id" => $id
+                ];
             }
+                if ($reservou == true) {
+                    $conn->commit();
+                    return [
+                        "pedido_id" => $order_id,
+                        "reservas" => $reservas,
+                        "messagem" => "Reservas criadas com sucesso!!"
+                    ];
+                } else {
+                    throw new RuntimeException("Pedido nao realizado, nenhum quarto reservado");
+                }
+            
+
         } catch (\Throwable $th) {
             try {
                 $conn->rollback();
             } catch (\Throwable $th2) {
-            throw $th;
+                throw $th;
             }
+            throw $th;
         }
     }
 }

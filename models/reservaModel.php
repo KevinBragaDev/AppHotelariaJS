@@ -18,5 +18,32 @@ class reservaModel {
         return $stmt->execute();
     }
 
+   
+    public static function isQuartoDisponivel($conn, $quarto_id, $inicio, $fim) {
+        $sql = "SELECT COUNT(*) as conflitos 
+                FROM reservas 
+                WHERE quarto_id = ? 
+                AND (
+                    (inicio <= ? AND fim > ?) OR 
+                    (inicio < ? AND fim >= ?) OR 
+                    (inicio >= ? AND fim <= ?)
+                )";
+        
+        $stmt = $conn->prepare($sql);
+        $stmt->bind_param("issssss", 
+            $quarto_id,
+            $fim, $inicio,      
+            $inicio, $fim,      
+            $inicio, $fim       
+        );
+        
+        $stmt->execute();
+        $result = $stmt->get_result();
+        $row = $result->fetch_assoc();
+        
+        
+        return $row['conflitos'] == 0;
+    }
+
 }
 ?>

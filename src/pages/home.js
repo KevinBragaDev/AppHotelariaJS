@@ -59,21 +59,7 @@ export default function renderHomePage() {
     const guestAmount = selector.querySelector('select');
     const btnSearchRoom = selector.querySelector('button');
 
-    const Divcard = document.createElement('div');
-    Divcard.className = 'cards';
-    Divcard.id = 'card-result';
-
-    /*path: é o nome do arquivo que esta em assets/img */
-    const loungeItems = [
-        {path: "restaurante.jpg", title: "Restaurante", text: "Nosso restaurante é um espaço agradavel e familiar!"},
-        {path: "spa.jpg", title: "SPA", text: "Nosso SPA é ideal para momentos de relaxamento!"},
-        {path: "bar.jpg", title: "Bar", text: "Nosso bar oferece drinks sem metanol, confia!"}
-    ];
-    //Percorre a array loungeItems
-    for (let i = 0; i < loungeItems.length; i++) {
-        const cardLoungeElement = CardLounge (loungeItems[i], i);
-        Divcard.appendChild(cardLoungeElement);
-    }
+    
 
 
     btnSearchRoom.addEventListener("click", async (e) => {
@@ -101,11 +87,38 @@ export default function renderHomePage() {
     
         
 
-        const dtInicio = new Date(inicio);
+        const dtInicio = new Date(inicio); // Data selecionada pelo usuário
+        const dataAtual = new Date(Date.now()); // Data atual usando Date.now()
         const dtFim = new Date(fim);
+        
+        // Resetar as horas para comparar apenas as datas
+        dataAtual.setHours(0, 0, 0, 0);
+        dtInicio.setHours(0, 0, 0, 0);
          
-        if (isNaN(dtInicio) || isNaN(dtFim) || dtInicio >= dtFim) {
+        if (isNaN(dtInicio) || isNaN(dtFim)) {
+            console.log("Data inválida!");
+            showDateErrorModal();
+            return;
+        }
+        
+        if (dtInicio < dataAtual) {
+            console.log("A data de check-in não pode ser anterior à data atual!");
+            showDateErrorModal();
+            return;
+        }
+        
+        if (dtInicio >= dtFim) {
             console.log("A data de check-out deve ser posterior ao check-in!");
+            showDateErrorModal();
+            return;
+        }
+        
+        // Verificar se check-out é pelo menos 1 dia após check-in
+        const diffTime = dtFim.getTime() - dtInicio.getTime();
+        const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+        
+        if (diffDays < 1) {
+            console.log("A data de check-out deve ser pelo menos 1 dia após o check-in!");
             showDateErrorModal();
             return;
         }
@@ -113,6 +126,7 @@ export default function renderHomePage() {
         console.log("Buscando quartos disponíveis...");
         
         // Mostrar spinner de loading
+        Divcard.innerHTML = '';
         const spinnerElement = Spinner();
         Divcard.appendChild(spinnerElement);
 
@@ -143,7 +157,29 @@ export default function renderHomePage() {
         }
     });
 
+    const Divcard = document.createElement('div');
+    Divcard.className = 'cards';
+    Divcard.id = 'card-result';
+
+    // Container para os lounge items (sempre visível)
+    const loungeContainer = document.createElement('div');
+    loungeContainer.className = 'cards';
+    loungeContainer.id = 'lounge-container';
+
+    /*path: é o nome do arquivo que esta em assets/img */
+    const loungeItems = [
+        {path: "restaurante.jpg", title: "Restaurante", text: "Nosso restaurante é um espaço agradavel e familiar!"},
+        {path: "spa.jpg", title: "SPA", text: "Nosso SPA é ideal para momentos de relaxamento!"},
+        {path: "bar.jpg", title: "Bar", text: "Nosso bar oferece drinks sem metanol, confia!"}
+    ];
+    //Percorre a array loungeItems
+    for (let i = 0; i < loungeItems.length; i++) {
+        const cardLoungeElement = CardLounge (loungeItems[i], i);
+        loungeContainer.appendChild(cardLoungeElement);
+    }
+
 
     divRoot.appendChild(Divcard);
+    divRoot.appendChild(loungeContainer);
     Footer();
 }
