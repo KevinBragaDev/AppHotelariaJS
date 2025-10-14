@@ -1,0 +1,334 @@
+export default function CadQuarto() {
+    
+    const divRoot = document.getElementById('root');
+    divRoot.innerHTML = '';
+
+    divRoot.style.height = '100vh';
+
+    const container = document.createElement('div');
+    container.className = 'card p-4 shadow-lg';
+    container.style.width = '100%';
+    container.style.maxWidth = '600px';
+    container.style.marginTop = '-200px';
+
+    const container2 = document.createElement('div');
+    container2.className = 'container2';
+    container2.style.display = 'flex';
+    container2.style.justifyContent = 'center';
+    container2.style.alignItems = 'center';
+
+    container2.appendChild(container);
+    divRoot.appendChild(container2);
+
+    const titulo = document.createElement('h1');
+    titulo.textContent = 'Cadastrar Novo Quarto';
+    titulo.className = 'titulo';
+    titulo.style.textAlign = 'center';
+    titulo.style.marginBottom = '30px';
+
+    const formulario = document.createElement('form');
+    formulario.className = 'd-flex flex-column';
+    formulario.id = 'formCadQuarto';
+
+    // Campo Nome do Quarto
+    const labelNome = document.createElement('label');
+    labelNome.textContent = 'Nome do Quarto:';
+    labelNome.style.marginBottom = '5px';
+    labelNome.style.fontWeight = 'bold';
+
+    const inputNome = document.createElement('input');
+    inputNome.type = 'text';
+    inputNome.name = 'nome';
+    inputNome.placeholder = "Ex: Suíte Master, Quarto Deluxe";
+    inputNome.className = 'form-control mb-3';
+    inputNome.required = true;
+
+    // Campo Número do Quarto
+    const labelNumero = document.createElement('label');
+    labelNumero.textContent = 'Número do Quarto:';
+    labelNumero.style.marginBottom = '5px';
+    labelNumero.style.fontWeight = 'bold';
+
+    const inputNumero = document.createElement('input');
+    inputNumero.type = 'number';
+    inputNumero.name = 'numero';
+    inputNumero.placeholder = "Ex: 101, 205";
+    inputNumero.className = 'form-control mb-3';
+    inputNumero.required = true;
+    inputNumero.min = '1';
+
+    // Campo Quantidade de Camas de Casal
+    const labelCamaCasal = document.createElement('label');
+    labelCamaCasal.textContent = 'Quantidade de Camas de Casal:';
+    labelCamaCasal.style.marginBottom = '5px';
+    labelCamaCasal.style.fontWeight = 'bold';
+
+    const inputCamaCasal = document.createElement('input');
+    inputCamaCasal.type = 'number';
+    inputCamaCasal.name = 'qtd_casal';
+    inputCamaCasal.placeholder = "Ex: 1";
+    inputCamaCasal.className = 'form-control mb-3';
+    inputCamaCasal.required = true;
+    inputCamaCasal.min = '0';
+
+    // Campo Quantidade de Camas de Solteiro
+    const labelCamaSolteiro = document.createElement('label');
+    labelCamaSolteiro.textContent = 'Quantidade de Camas de Solteiro:';
+    labelCamaSolteiro.style.marginBottom = '5px';
+    labelCamaSolteiro.style.fontWeight = 'bold';
+
+    const inputCamaSolteiro = document.createElement('input');
+    inputCamaSolteiro.type = 'number';
+    inputCamaSolteiro.name = 'qtd_solteiro';
+    inputCamaSolteiro.placeholder = "Ex: 2";
+    inputCamaSolteiro.className = 'form-control mb-3';
+    inputCamaSolteiro.required = true;
+    inputCamaSolteiro.min = '0';
+
+    // Campo Preço
+    const labelPreco = document.createElement('label');
+    labelPreco.textContent = 'Preço por Noite (R$):';
+    labelPreco.style.marginBottom = '5px';
+    labelPreco.style.fontWeight = 'bold';
+
+    const inputPreco = document.createElement('input');
+    inputPreco.type = 'number';
+    inputPreco.name = 'preco';
+    inputPreco.placeholder = "Ex: 250.00";
+    inputPreco.className = 'form-control mb-3';
+    inputPreco.required = true;
+    inputPreco.min = '0';
+    inputPreco.step = '0.01';
+
+    // Campo Disponibilidade
+    const labelDisponivel = document.createElement('label');
+    labelDisponivel.textContent = 'Disponível:';
+    labelDisponivel.style.marginBottom = '5px';
+    labelDisponivel.style.fontWeight = 'bold';
+
+    const selectDisponivel = document.createElement('select');
+    selectDisponivel.name = 'disponivel';
+    selectDisponivel.className = 'form-control mb-4';
+    selectDisponivel.required = true;
+
+    const optionSim = document.createElement('option');
+    optionSim.value = '1';
+    optionSim.textContent = 'Sim';
+
+    const optionNao = document.createElement('option');
+    optionNao.value = '0';
+    optionNao.textContent = 'Não';
+
+    selectDisponivel.appendChild(optionSim);
+    selectDisponivel.appendChild(optionNao);
+
+    // Campo Upload de Imagem
+    const labelImagem = document.createElement('label');
+    labelImagem.textContent = 'Imagem do Quarto:';
+    labelImagem.style.marginBottom = '5px';
+    labelImagem.style.fontWeight = 'bold';
+
+    const inputImagem = document.createElement('input');
+    inputImagem.innerHTML = `
+    <div class="mb-3">
+  <label for="formFile" class="form-label">Default file input example</label>
+  <input class="form-control" type="file" id="formFile">
+</div>
+<div class="mb-3">
+  <label for="formFileMultiple" class="form-label">Multiple files input example</label>
+  <input class="form-control" type="file" id="formFileMultiple" multiple>
+</div>
+<div class="mb-3">
+  <label for="formFileDisabled" class="form-label">Disabled file input example</label>
+  <input class="form-control" type="file" id="formFileDisabled" disabled>
+</div>
+<div class="mb-3">
+  <label for="formFileSm" class="form-label">Small file input example</label>
+  <input class="form-control form-control-sm" id="formFileSm" type="file">
+</div>
+<div>
+  <label for="formFileLg" class="form-label">Large file input example</label>
+  <input class="form-control form-control-lg" id="formFileLg" type="file">
+</div>
+    `;
+    // Preview da imagem
+    const previewContainer = document.createElement('div');
+    previewContainer.className = 'mb-3';
+    previewContainer.style.textAlign = 'center';
+
+    const previewImg = document.createElement('img');
+    previewImg.id = 'preview-imagem';
+    previewImg.style.maxWidth = '200px';
+    previewImg.style.maxHeight = '150px';
+    previewImg.style.border = '1px solid #ddd';
+    previewImg.style.borderRadius = '8px';
+    previewImg.style.display = 'none';
+
+    const previewLabel = document.createElement('p');
+    previewLabel.textContent = 'Nenhuma imagem selecionada';
+    previewLabel.style.color = '#666';
+    previewLabel.style.fontSize = '14px';
+    previewLabel.style.marginTop = '10px';
+
+    previewContainer.appendChild(previewImg);
+    previewContainer.appendChild(previewLabel);
+
+    // Event listener para preview da imagem
+    inputImagem.addEventListener('change', (e) => {
+        const file = e.target.files[0];
+        if (file) {
+            const reader = new FileReader();
+            reader.onload = (e) => {
+                previewImg.src = e.target.result;
+                previewImg.style.display = 'block';
+                previewLabel.style.display = 'none';
+            };
+            reader.readAsDataURL(file);
+        } else {
+            previewImg.style.display = 'none';
+            previewLabel.style.display = 'block';
+        }
+    });
+
+    // Botões
+    const divBotoes = document.createElement('div');
+    divBotoes.className = 'd-flex gap-2 justify-content-center';
+
+    const btnCadastrar = document.createElement('button');
+    btnCadastrar.type = 'submit';
+    btnCadastrar.textContent = 'Cadastrar Quarto';
+    btnCadastrar.className = 'btn btn-primary';
+    btnCadastrar.style.flex = '1';
+
+    const btnCancelar = document.createElement('button');
+    btnCancelar.type = 'button';
+    btnCancelar.textContent = 'Cancelar';
+    btnCancelar.className = 'btn btn-secondary';
+    btnCancelar.style.flex = '1';
+
+    divBotoes.appendChild(btnCadastrar);
+    divBotoes.appendChild(btnCancelar);
+
+    // Adicionar elementos ao formulário
+    formulario.appendChild(labelNome);
+    formulario.appendChild(inputNome);
+    formulario.appendChild(labelNumero);
+    formulario.appendChild(inputNumero);
+    formulario.appendChild(labelCamaCasal);
+    formulario.appendChild(inputCamaCasal);
+    formulario.appendChild(labelCamaSolteiro);
+    formulario.appendChild(inputCamaSolteiro);
+    formulario.appendChild(labelPreco);
+    formulario.appendChild(inputPreco);
+    formulario.appendChild(labelDisponivel);
+    formulario.appendChild(selectDisponivel);
+    formulario.appendChild(labelImagem);
+    formulario.appendChild(inputImagem);
+    formulario.appendChild(previewContainer);
+    formulario.appendChild(divBotoes);
+
+    // Adicionar elementos ao container
+    container.appendChild(titulo);
+    container.appendChild(formulario);
+
+    // Event listeners
+    formulario.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        await cadastrarQuarto(formulario);
+    });
+
+    btnCancelar.addEventListener('click', () => {
+        // Voltar para a página anterior ou home
+        window.history.back();
+    });
+
+    return container;
+}
+
+// Função para cadastrar quarto via API
+async function cadastrarQuarto(formulario) {
+    const formData = new FormData(formulario);
+    const dadosQuarto = {
+        nome: formData.get('nome'),
+        numero: parseInt(formData.get('numero')),
+        qtd_casal: parseInt(formData.get('qtd_casal')),
+        qtd_solteiro: parseInt(formData.get('qtd_solteiro')),
+        preco: parseFloat(formData.get('preco')),
+        disponivel: parseInt(formData.get('disponivel'))
+    };
+
+    // Verificar se há imagem selecionada
+    const imagemFile = formData.get('imagem');
+    if (imagemFile && imagemFile.size > 0) {
+        dadosQuarto.imagem = imagemFile;
+    }
+
+    try {
+        // Se há imagem, usar FormData para envio multipart
+        if (imagemFile && imagemFile.size > 0) {
+            const formDataToSend = new FormData();
+            formDataToSend.append('nome', dadosQuarto.nome);
+            formDataToSend.append('numero', dadosQuarto.numero);
+            formDataToSend.append('qtd_casal', dadosQuarto.qtd_casal);
+            formDataToSend.append('qtd_solteiro', dadosQuarto.qtd_solteiro);
+            formDataToSend.append('preco', dadosQuarto.preco);
+            formDataToSend.append('disponivel', dadosQuarto.disponivel);
+            formDataToSend.append('imagem', imagemFile);
+
+            const response = await fetch('api/quartos', {
+                method: 'POST',
+                headers: {
+                    'Accept': 'application/json'
+                },
+                credentials: 'same-origin',
+                body: formDataToSend
+            });
+
+            const data = await response.json();
+
+            if (response.ok) {
+                alert('Quarto cadastrado com sucesso!');
+                formulario.reset();
+                // Limpar preview da imagem
+                const previewImg = document.getElementById('preview-imagem');
+                const previewLabel = previewImg.nextElementSibling;
+                previewImg.style.display = 'none';
+                previewLabel.style.display = 'block';
+                // Opcional: redirecionar ou atualizar a página
+                window.location.reload();
+            } else {
+                alert(`Erro ao cadastrar quarto: ${data.message || 'Erro desconhecido'}`);
+            }
+        } else {
+            // Envio sem imagem (JSON)
+            const response = await fetch('api/quartos', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Accept': 'application/json'
+                },
+                credentials: 'same-origin',
+                body: JSON.stringify(dadosQuarto)
+            });
+
+            const data = await response.json();
+
+            if (response.ok) {
+                alert('Quarto cadastrado com sucesso!');
+                formulario.reset();
+                // Limpar preview da imagem
+                const previewImg = document.getElementById('preview-imagem');
+                const previewLabel = previewImg.nextElementSibling;
+                previewImg.style.display = 'none';
+                previewLabel.style.display = 'block';
+                // Opcional: redirecionar ou atualizar a página
+                window.location.reload();
+            } else {
+                alert(`Erro ao cadastrar quarto: ${data.message || 'Erro desconhecido'}`);
+            }
+        }
+    } catch (error) {
+        console.error('Erro na requisição:', error);
+        alert('Erro de conexão. Tente novamente.');
+    }
+}

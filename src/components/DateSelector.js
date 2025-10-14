@@ -14,7 +14,7 @@ export default function dateContainer() {
         if (dateCheckIn.value) {
             // Adicionar 1 dia ao check-in para definir o min do check-out
             const checkInDate = new Date(dateCheckIn.value);
-            checkInDate.setDate(checkInDate.getDate() + 1);
+            checkInDate.setDate(checkInDate.getDate() + 1); 
             dateCheckOut.min = checkInDate.toISOString().split('T')[0];
         }
     });
