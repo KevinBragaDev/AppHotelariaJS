@@ -49,6 +49,7 @@ class orderModel {
                 "cliente_id"=> $cliente_id,
                 "pagamento"=> $pagamento
             ]);
+
             if(!$order_id) {
                 throw new RuntimeException("Erro ao criar o pedido.");
             }
@@ -67,10 +68,15 @@ class orderModel {
                 no intervalo de datas
                 reservaModel::isConflict(); */
 
-                $reserverResult = reservaModel::create($conn,[
+                if ( !reservaModel::isQuartoDisponivel($conn, $id, $inicio, $fim) ) {
+                    $reservas[] = "quarto {$id} indisponivel no periodo de {$inicio} a {$fim}";
+                    continue;
+                }
+
+                $reserverResult = reservaModel::criar($conn,[
                     "pedido_id" => $order_id,
                     "quarto_id" => $id,
-                    "adicional_id" => null,
+                    "adicional_id" => 2,
                     "fim" => $fim,
                     "inicio" => $inicio,
                 ]);

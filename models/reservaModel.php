@@ -9,11 +9,11 @@ class reservaModel {
                 VALUES (?, ?, ?, ?, ?);";
         $stmt = $conn->prepare($sql);
         $stmt->bind_param("iiiss", 
-            $data["pedidoID"],
-            $data["quartoID"],
-            $data["adicionalID"],
-            $data["fim"],
-            $data["inicio"]
+            $data["pedido_id"],
+             $data["quarto_id"],
+             $data["adicional_id"],
+             $data["fim"],
+             $data["inicio"]
         );
         return $stmt->execute();
     }

@@ -24,17 +24,25 @@
         }
 
         public static function createOrder($conn, $data) {
-            $data['usuario_id'] = isset ($data['usuario_id']) ? $data ['usuario_id'] : null;
+            $data['usuario_id'] = isset ($data['usuario_id']) ? $data ['usuario_id'] : 1;
 
             validateController::validate_data($data, ["cliente_id", "pagamento", "quartos"]);
 
-            foreach ($data["quartos"] as $index => $quarto) {
+            foreach ($data["quartos"] as $quarto) {
                 validateController::validate_data($quarto, ["id", "inicio", "fim"]);
+                $quarto['inicio'] = validateController::fix_dateHour($quarto["inicio"], 14);
+                $quarto['fim'] = validateController::fix_dateHour($quarto["fim"], 12);
             }
             if(count($data['quartos']) == 0) {
                 return jsonResponse(["message"=>'Nao existe reserva'],400);
+
+            } try {
+                $resultado = orderModel::createOrder($conn, $data);
+                return jsonResponse(["message"=> $resultado]);
+
+            } catch (\Throwable $error) {
+                return jsonResponse(["message"=>$error->getMessage()], 500);
             }
-            //orderModel::crieateOrder($conn, $data);
         }
     }
 ?>

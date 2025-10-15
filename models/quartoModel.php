@@ -101,7 +101,7 @@ class quartoModel {
         $stmt = $conn->prepare($sql);
         $stmt->bind_param("i", $id);
         $stmt->execute();
-        $result = stmt->get_result();
+        $result = $stmt->get_result();
 
         $row = $result && $result ->num_rows >0;
         $stmt->close();
