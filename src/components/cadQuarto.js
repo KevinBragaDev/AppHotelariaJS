@@ -128,67 +128,72 @@ export default function CadQuarto() {
     labelImagem.style.marginBottom = '5px';
     labelImagem.style.fontWeight = 'bold';
 
-    const inputImagem = document.createElement('input');
-    inputImagem.innerHTML = `
+    // substituído: inputImagem como elemento input -> agora é um container com input habilitado (id=formFileMultiple, name=imagem)
+    const inputImagemContainer = document.createElement('div');
+    inputImagemContainer.innerHTML = `
     <div class="mb-3">
-  <label for="formFile" class="form-label">Default file input example</label>
-  <input class="form-control" type="file" id="formFile">
-</div>
-<div class="mb-3">
-  <label for="formFileMultiple" class="form-label">Multiple files input example</label>
-  <input class="form-control" type="file" id="formFileMultiple" multiple>
-</div>
-<div class="mb-3">
-  <label for="formFileDisabled" class="form-label">Disabled file input example</label>
-  <input class="form-control" type="file" id="formFileDisabled" disabled>
-</div>
-<div class="mb-3">
-  <label for="formFileSm" class="form-label">Small file input example</label>
-  <input class="form-control form-control-sm" id="formFileSm" type="file">
-</div>
-<div>
-  <label for="formFileLg" class="form-label">Large file input example</label>
-  <input class="form-control form-control-lg" id="formFileLg" type="file">
-</div>
+      <label for="formFileMultiple" class="form-label">Escolher imagens (opcional)</label>
+      <input class="form-control" type="file" id="formFileMultiple" name="imagem" accept="image/*" multiple>
+    </div>
     `;
-    // Preview da imagem
+
+    // Preview da imagem (suporta múltiplas)
     const previewContainer = document.createElement('div');
     previewContainer.className = 'mb-3';
     previewContainer.style.textAlign = 'center';
 
-    const previewImg = document.createElement('img');
-    previewImg.id = 'preview-imagem';
-    previewImg.style.maxWidth = '200px';
-    previewImg.style.maxHeight = '150px';
-    previewImg.style.border = '1px solid #ddd';
-    previewImg.style.borderRadius = '8px';
-    previewImg.style.display = 'none';
+    const previewGrid = document.createElement('div');
+    previewGrid.id = 'preview-imagens';
+    previewGrid.style.display = 'flex';
+    previewGrid.style.flexWrap = 'wrap';
+    previewGrid.style.gap = '8px';
+    previewGrid.style.justifyContent = 'center';
+    previewGrid.style.marginTop = '10px';
 
     const previewLabel = document.createElement('p');
+    previewLabel.id = 'preview-label';
     previewLabel.textContent = 'Nenhuma imagem selecionada';
     previewLabel.style.color = '#666';
     previewLabel.style.fontSize = '14px';
     previewLabel.style.marginTop = '10px';
 
-    previewContainer.appendChild(previewImg);
+    previewContainer.appendChild(previewGrid);
     previewContainer.appendChild(previewLabel);
 
-    // Event listener para preview da imagem
-    inputImagem.addEventListener('change', (e) => {
-        const file = e.target.files[0];
-        if (file) {
-            const reader = new FileReader();
-            reader.onload = (e) => {
-                previewImg.src = e.target.result;
-                previewImg.style.display = 'block';
-                previewLabel.style.display = 'none';
-            };
-            reader.readAsDataURL(file);
-        } else {
-            previewImg.style.display = 'none';
-            previewLabel.style.display = 'block';
-        }
-    });
+    // Event listener para preview da imagem (mostra todas as selecionadas)
+    const formFileInput = inputImagemContainer.querySelector('#formFileMultiple');
+    if (formFileInput) {
+        formFileInput.addEventListener('change', (e) => {
+            const files = Array.from(e.target.files || []);
+            const previewGridEl = document.getElementById('preview-imagens');
+            const previewLabelEl = document.getElementById('preview-label');
+
+            // limpar previews anteriores
+            previewGridEl.innerHTML = '';
+
+            if (files.length > 0) {
+                previewLabelEl.style.display = 'none';
+                files.forEach((file) => {
+                    if (!file.type.startsWith('image/')) return;
+                    const reader = new FileReader();
+                    reader.onload = (ev) => {
+                        const img = document.createElement('img');
+                        img.src = ev.target.result;
+                        img.style.maxWidth = '150px';
+                        img.style.maxHeight = '120px';
+                        img.style.objectFit = 'cover';
+                        img.style.border = '1px solid #ddd';
+                        img.style.borderRadius = '6px';
+                        img.style.padding = '2px';
+                        previewGridEl.appendChild(img);
+                    };
+                    reader.readAsDataURL(file);
+                });
+            } else {
+                previewLabelEl.style.display = 'block';
+            }
+        });
+    }
 
     // Botões
     const divBotoes = document.createElement('div');
@@ -223,7 +228,7 @@ export default function CadQuarto() {
     formulario.appendChild(labelDisponivel);
     formulario.appendChild(selectDisponivel);
     formulario.appendChild(labelImagem);
-    formulario.appendChild(inputImagem);
+    formulario.appendChild(inputImagemContainer);
     formulario.appendChild(previewContainer);
     formulario.appendChild(divBotoes);
 
@@ -290,10 +295,10 @@ async function cadastrarQuarto(formulario) {
                 alert('Quarto cadastrado com sucesso!');
                 formulario.reset();
                 // Limpar preview da imagem
-                const previewImg = document.getElementById('preview-imagem');
-                const previewLabel = previewImg.nextElementSibling;
-                previewImg.style.display = 'none';
-                previewLabel.style.display = 'block';
+                const previewGridEl = document.getElementById('preview-imagens');
+                const previewLabelEl = document.getElementById('preview-label');
+                if (previewGridEl) previewGridEl.innerHTML = '';
+                if (previewLabelEl) previewLabelEl.style.display = 'block';
                 // Opcional: redirecionar ou atualizar a página
                 window.location.reload();
             } else {
@@ -317,10 +322,10 @@ async function cadastrarQuarto(formulario) {
                 alert('Quarto cadastrado com sucesso!');
                 formulario.reset();
                 // Limpar preview da imagem
-                const previewImg = document.getElementById('preview-imagem');
-                const previewLabel = previewImg.nextElementSibling;
-                previewImg.style.display = 'none';
-                previewLabel.style.display = 'block';
+                const previewGridEl = document.getElementById('preview-imagens');
+                const previewLabelEl = document.getElementById('preview-label');
+                if (previewGridEl) previewGridEl.innerHTML = '';
+                if (previewLabelEl) previewLabelEl.style.display = 'block';
                 // Opcional: redirecionar ou atualizar a página
                 window.location.reload();
             } else {
