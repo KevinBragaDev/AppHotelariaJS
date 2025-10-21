@@ -1,8 +1,11 @@
 export async function finishedOrder(items) {
     const url = "api/order/reserva";
     const body = {
+        cliente_id: 30,
+
+        
         pagamento: "pix",
-        quatos: items.map(it => (
+        quartos: items.map(it => (
             {
                 id: it.roomId,
                 inicio: it.checkIn,
@@ -20,6 +23,20 @@ export async function finishedOrder(items) {
         body: JSON.stringify(body),
         credentials: "same-origin"
     });
+
+    let data = null;
+    try {
+        data = await res.json();
+    } catch {
+        data = null;
+    }
+    if(!data) {
+        const message = `Erro ao finalizar o pedido: ${res.status}`;
+        return { ok: false, raw: data, message }; }
+        return {
+            ok: true,
+            raw: data
+        }
 
     if (!res.ok) {
         const message = `Erro ao finalizar o pedido: ${res.status}`;

@@ -1,3 +1,15 @@
+function calculoDiarias(checkIn, checkOut) {
+    const checkIn = "2026-01-01";
+    const checkOut = "2026-01-05";
+    const [yin, min, din] = String(checkIn).split('-').map(Number);
+    const [yout, mout, dout] = String(checkOut).split('-').map(Number);
+
+    const tzin = Date.UTC(yin, min - 1, din);
+    const tzout = Date.UTC(yout, mout - 1, dout);
+
+}
+
+
 export default function RoomCard(itemCard, index = 0) {
 const {
   nome,
@@ -53,7 +65,7 @@ const containerCard = document.createElement('div');
             <h5 class="card-title">${title}</h5>
             <ul class=list-unstyled mb-2">
                 ${camas? `<li>${camas}` : ""}
-                ${preco != null ? `<li>Preco: R$ ${Number(preco).toFixed(2)}</li>` : ""}
+                ${preco != null ? `<li>Preco diária: R$ ${Number(preco).toFixed(2)}</li>` : ""}
             </ul>
             <a href="#" class="btn btn-primary">Reservar</a>
         </div>

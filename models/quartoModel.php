@@ -17,17 +17,16 @@ class quartoModel {
     }
 
     public static function criar($conn, $data) {
-        $sql = "INSERT INTO quartos (nome,numero,qnt_cama_casal,qnt_cama_solteiro,preco,disponivel,imagem)
-                VALUES (?, ?, ?, ?, ?, ?, ?);";
+        $sql = "INSERT INTO quartos (nome,numero,qnt_cama_casal,qnt_cama_solteiro,preco,disponivel)
+                VALUES (?, ?, ?, ?, ?, ?);";
         $stmt = $conn->prepare($sql);
-        $stmt->bind_param("siiidis", 
+        $stmt->bind_param("siiidi", 
             $data["nome"],
             $data["numero"],
             $data["qtd_casal"],
             $data["qtd_solteiro"],
             $data["preco"],
-            $data["disponivel"],
-            $data["imagem"] ?? null
+            $data["disponivel"]
         );
         return $stmt->execute();
         

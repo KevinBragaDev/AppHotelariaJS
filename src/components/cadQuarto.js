@@ -1,3 +1,5 @@
+import { createRoom } from '../api/roomsAPI.js';
+
 export default function CadQuarto() {
     
     const divRoot = document.getElementById('root');
@@ -239,7 +241,19 @@ export default function CadQuarto() {
     // Event listeners
     formulario.addEventListener('submit', async (e) => {
         e.preventDefault();
-        await cadastrarQuarto(formulario);
+        const nome = inputNome.value.trim();
+        const numero = parseInt(inputNumero.value.trim(), 10);
+        const qtd_casal = parseInt(inputCamaCasal.value.trim(), 10);
+        const qtd_solteiro = parseInt(inputCamaSolteiro.value.trim(), 10);
+        const preco = parseFloat(inputPreco.value.trim());
+        const disponivel = selectDisponivel.value === '1' ? true : false;
+
+        try {
+            const result = createRoom(nome,numero,qtd_casal,qtd_solteiro,preco,disponivel);
+            alert('Quarto cadastrado com sucesso!');
+        } catch {
+            console.log("erro inesperado!");
+        }
     });
 
     btnCancelar.addEventListener('click', () => {
@@ -248,92 +262,4 @@ export default function CadQuarto() {
     });
 
     return container;
-}
-
-// Função para cadastrar quarto via API
-async function cadastrarQuarto(formulario) {
-    const formData = new FormData(formulario);
-    const dadosQuarto = {
-        nome: formData.get('nome'),
-        numero: parseInt(formData.get('numero')),
-        qtd_casal: parseInt(formData.get('qtd_casal')),
-        qtd_solteiro: parseInt(formData.get('qtd_solteiro')),
-        preco: parseFloat(formData.get('preco')),
-        disponivel: parseInt(formData.get('disponivel'))
-    };
-
-    // Verificar se há imagem selecionada
-    const imagemFile = formData.get('imagem');
-    if (imagemFile && imagemFile.size > 0) {
-        dadosQuarto.imagem = imagemFile;
-    }
-
-    try {
-        // Se há imagem, usar FormData para envio multipart
-        if (imagemFile && imagemFile.size > 0) {
-            const formDataToSend = new FormData();
-            formDataToSend.append('nome', dadosQuarto.nome);
-            formDataToSend.append('numero', dadosQuarto.numero);
-            formDataToSend.append('qtd_casal', dadosQuarto.qtd_casal);
-            formDataToSend.append('qtd_solteiro', dadosQuarto.qtd_solteiro);
-            formDataToSend.append('preco', dadosQuarto.preco);
-            formDataToSend.append('disponivel', dadosQuarto.disponivel);
-            formDataToSend.append('imagem', imagemFile);
-
-            const response = await fetch('api/quartos', {
-                method: 'POST',
-                headers: {
-                    'Accept': 'application/json'
-                },
-                credentials: 'same-origin',
-                body: formDataToSend
-            });
-
-            const data = await response.json();
-
-            if (response.ok) {
-                alert('Quarto cadastrado com sucesso!');
-                formulario.reset();
-                // Limpar preview da imagem
-                const previewGridEl = document.getElementById('preview-imagens');
-                const previewLabelEl = document.getElementById('preview-label');
-                if (previewGridEl) previewGridEl.innerHTML = '';
-                if (previewLabelEl) previewLabelEl.style.display = 'block';
-                // Opcional: redirecionar ou atualizar a página
-                window.location.reload();
-            } else {
-                alert(`Erro ao cadastrar quarto: ${data.message || 'Erro desconhecido'}`);
-            }
-        } else {
-            // Envio sem imagem (JSON)
-            const response = await fetch('api/quartos', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'Accept': 'application/json'
-                },
-                credentials: 'same-origin',
-                body: JSON.stringify(dadosQuarto)
-            });
-
-            const data = await response.json();
-
-            if (response.ok) {
-                alert('Quarto cadastrado com sucesso!');
-                formulario.reset();
-                // Limpar preview da imagem
-                const previewGridEl = document.getElementById('preview-imagens');
-                const previewLabelEl = document.getElementById('preview-label');
-                if (previewGridEl) previewGridEl.innerHTML = '';
-                if (previewLabelEl) previewLabelEl.style.display = 'block';
-                // Opcional: redirecionar ou atualizar a página
-                window.location.reload();
-            } else {
-                alert(`Erro ao cadastrar quarto: ${data.message || 'Erro desconhecido'}`);
-            }
-        }
-    } catch (error) {
-        console.error('Erro na requisição:', error);
-        alert('Erro de conexão. Tente novamente.');
-    }
 }

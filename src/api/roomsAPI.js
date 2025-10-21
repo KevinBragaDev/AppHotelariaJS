@@ -50,3 +50,29 @@ export async function listAvailableRoomsRequest({ inicio, fim, qtd }) {
     console.log(quartos);
     return quartos;
 }
+
+export async function createRoom(nome,numero,qtd_casal,qtd_solteiro,preco,disponivel) {
+   const dados = {nome,numero,qtd_casal,qtd_solteiro,preco,disponivel};
+        const res = await fetch('api/quartos', {
+            method: 'POST',
+            headers: {
+                'Accept':'application/json',
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(dados),
+            credentials: 'same-origin',
+        });
+        let data = null;
+    try {
+        data = await res.json();
+    }
+    catch{
+        // Se nao for JSON valido, data permanece null
+        data = null;
+    }
+
+    return {
+        ok: true,
+        raw: data
+    }
+}
