@@ -8,42 +8,48 @@ class quartoModel {
         return $result->fetch_all(MYSQLI_ASSOC);
     }
 
-    public static function buscarPorid($conn, $id){
-        $sql = "SELECT * FROM quartos WHERE id = ?";
+    public static function buscarQuartoid($conn, $id){
+        $sql = "SELECT f.nome FROM imagens_quartos qf ON qf.imagem_id = f.id
+        WHERE qf.quarto_id = ?";
+
         $stmt = $conn->prepare($sql);
         $stmt->bind_param("i", $id);
         $stmt->execute();
-        return $stmt->get_result()->fetch_assoc();
+        return $stmt->get_result();
+        $photos = [];
+        while ($row = $result->fetch_assoc()) {
+            $photos[] = $row['nome'];
+        }
+        return $photos;
     }
 
-    public static function criar($conn, $data) {
-        $sql = "INSERT INTO quartos (nome,numero,qnt_cama_casal,qnt_cama_solteiro,preco,disponivel)
-                VALUES (?, ?, ?, ?, ?, ?);";
+    public static function create($conn, $name) {
+        $sql = "INSERT INTO imagens (nome) VALUES (?);";
         $stmt = $conn->prepare($sql);
-        $stmt->bind_param("siiidi", 
-            $data["nome"],
-            $data["numero"],
-            $data["qtd_casal"],
-            $data["qtd_solteiro"],
-            $data["preco"],
-            $data["disponivel"]
-        );
-        return $stmt->execute(){
-            return $conn->insert_id
+        $stmt->bind_param("s", $name);
+        if (stmt->execute()){
+            return $conn->insert_id;
         }
         return false;
+        
     }
 
-    public static function atualizar($conn, $id, $data) {
-        $sql = "UPDATE quartos SET nome = ?, numero = ?, qnt_cama_casal = ?, qnt_cama_solteiro = ?, preco = ?, disponivel = ?, imagem = ? WHERE id = ?";
+    public static function createRelationRoom($conn, $id_room, $id_photo) {
+        $sql = "INSERT INTO imagens_quartos (quarto_id, imagem_id) VALUES (?, ?);";
         $stmt = $conn->prepare($sql);
-        $stmt->bind_param("siiidisi", 
+        $stmt->bind_param("ii", $idRoom, $idPhoto);
+        if (stmt->execute()){
+            return $conn->insert_id;
+        }
+        return false;
+        
+    }   
+
+    public static function update($conn, $id, $data) {
+        $sql = "UPDATE imagens SET nome = ? WHERE id = ?";
+        $stmt = $conn->prepare($sql);
+        $stmt->bind_param("si", 
             $data["nome"],
-            $data["numero"],
-            $data["qtd_casal"],
-            $data["qtd_solteiro"],
-            $data["preco"],
-            $data["disponivel"],
             $id
         );
         return $stmt->execute();

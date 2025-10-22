@@ -40,6 +40,9 @@ switch ($method) {
         break;
 
     case "POST":
+        $data = $_POST;
+        $data['fotos'] = $_FILES['fotos'] ?? null;
+        
         $data = json_decode(file_get_contents('php://input'), true);
         quartoController::criar($conn, $data);
         break;

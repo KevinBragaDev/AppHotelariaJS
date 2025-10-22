@@ -1,13 +1,13 @@
-function calculoDiarias(checkIn, checkOut) {
-    const checkIn = "2026-01-01";
-    const checkOut = "2026-01-05";
-    const [yin, min, din] = String(checkIn).split('-').map(Number);
-    const [yout, mout, dout] = String(checkOut).split('-').map(Number);
+// function calculoDiarias(checkIn, checkOut) {
+//     const checkIn = "2026-01-01";
+//     const checkOut = "2026-01-05";
+//     const [yin, min, din] = String(checkIn).split('-').map(Number);
+//     const [yout, mout, dout] = String(checkOut).split('-').map(Number);
 
-    const tzin = Date.UTC(yin, min - 1, din);
-    const tzout = Date.UTC(yout, mout - 1, dout);
+//     const tzin = Date.UTC(yin, min - 1, din);
+//     const tzout = Date.UTC(yout, mout - 1, dout);
 
-}
+// }
 
 
 export default function RoomCard(itemCard, index = 0) {
