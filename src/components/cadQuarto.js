@@ -31,6 +31,7 @@ export default function CadQuarto() {
     const formulario = document.createElement('form');
     formulario.className = 'd-flex flex-column';
     formulario.id = 'formCadQuarto';
+    formulario.enctype = 'multipart/form-data';
 
     // Campo Nome do Quarto
     const labelNome = document.createElement('label');
@@ -67,7 +68,7 @@ export default function CadQuarto() {
 
     const inputCamaCasal = document.createElement('input');
     inputCamaCasal.type = 'number';
-    inputCamaCasal.name = 'qtd_casal';
+    inputCamaCasal.name = 'qnt_cama_casal';
     inputCamaCasal.placeholder = "Ex: 1";
     inputCamaCasal.className = 'form-control mb-3';
     inputCamaCasal.required = true;
@@ -81,7 +82,7 @@ export default function CadQuarto() {
 
     const inputCamaSolteiro = document.createElement('input');
     inputCamaSolteiro.type = 'number';
-    inputCamaSolteiro.name = 'qtd_solteiro';
+    inputCamaSolteiro.name = 'qnt_cama_solteiro';
     inputCamaSolteiro.placeholder = "Ex: 2";
     inputCamaSolteiro.className = 'form-control mb-3';
     inputCamaSolteiro.required = true;
@@ -109,15 +110,16 @@ export default function CadQuarto() {
     labelDisponivel.style.fontWeight = 'bold';
 
     const selectDisponivel = document.createElement('select');
-    selectDisponivel.name = 'disponivel';
     selectDisponivel.className = 'form-control mb-4';
     selectDisponivel.required = true;
 
     const optionSim = document.createElement('option');
+    optionSim.name = 'disponivel';
     optionSim.value = '1';
     optionSim.textContent = 'Sim';
 
     const optionNao = document.createElement('option');
+    optionNao.name = 'disponivel';
     optionNao.value = '0';
     optionNao.textContent = 'Não';
 
@@ -135,7 +137,7 @@ export default function CadQuarto() {
     inputImagemContainer.innerHTML = `
     <div class="mb-3">
       <label for="formFileMultiple" class="form-label">Escolher imagens (opcional)</label>
-      <input class="form-control" type="file" id="formFileMultiple" name="imagem" accept="image/*" multiple>
+      <input class="form-control" type="file" id="formFileMultiple" name="fotos[]" accept="image/*" multiple>
     </div>
     `;
 
@@ -241,18 +243,12 @@ export default function CadQuarto() {
     // Event listeners
     formulario.addEventListener('submit', async (e) => {
         e.preventDefault();
-        const nome = inputNome.value.trim();
-        const numero = parseInt(inputNumero.value.trim(), 10);
-        const qtd_casal = parseInt(inputCamaCasal.value.trim(), 10);
-        const qtd_solteiro = parseInt(inputCamaSolteiro.value.trim(), 10);
-        const preco = parseFloat(inputPreco.value.trim());
-        const disponivel = selectDisponivel.value === '1' ? true : false;
-
-        try {
-            const result = createRoom(nome,numero,qtd_casal,qtd_solteiro,preco,disponivel);
-            alert('Quarto cadastrado com sucesso!');
-        } catch {
-            console.log("erro inesperado!");
+    try { 
+            const response = await createRoom(formulario);
+            console.log("Resposta do servidor: ", response);
+        }
+        catch (error) {
+            console.log("Erro ao enviar requisição: " + error.message);
         }
     });
 

@@ -1,17 +1,20 @@
-// function calculoDiarias(checkIn, checkOut) {
-//     const checkIn = "2026-01-01";
-//     const checkOut = "2026-01-05";
-//     const [yin, min, din] = String(checkIn).split('-').map(Number);
-//     const [yout, mout, dout] = String(checkOut).split('-').map(Number);
+function calculoDiarias(checkIn, checkOut) {
+    // const checkIn = "2026-01-01";
+    // const checkOut = "2026-01-05";
 
-//     const tzin = Date.UTC(yin, min - 1, din);
-//     const tzout = Date.UTC(yout, mout - 1, dout);
+    const [yin, min, din] = String(checkIn).split('-').map(Number);
+    const [yout, mout, dout] = String(checkOut).split('-').map(Number);
 
-// }
+    const tzin = Date.UTC(yin, min - 1, din);
+    const tzout = Date.UTC(yout, mout - 1, dout);
+    return Math.floor((tzout - tzin) / (1000 * 60 * 60 * 24));
+
+}
 
 
 export default function RoomCard(itemCard, index = 0) {
 const {
+  id,
   nome,
   numero,
   qnt_cama_casal,
@@ -61,16 +64,53 @@ const containerCard = document.createElement('div');
 </div>
 
 
+
   <div class="card-body">
             <h5 class="card-title">${title}</h5>
             <ul class=list-unstyled mb-2">
                 ${camas? `<li>${camas}` : ""}
                 ${preco != null ? `<li>Preco diária: R$ ${Number(preco).toFixed(2)}</li>` : ""}
             </ul>
-            <a href="#" class="btn btn-primary">Reservar</a>
+            <a href="#" class="btn btn-primary btn-reservar">Reservar</a>
         </div>
     </div>
     `;
-  return containerCard;
+    containerCard.querySelector('.btn-reservar').addEventListener('click', async (e) => {
+        e.preventDefault();
 
+        //Ler informaçoes setadas nos inputs dateCkeckin, date Checkout e guestAmount
+        const idDateCheckin = document.getElementById('date-check-in');
+        const idDateCheckout = document.getElementById('date-check-out');
+        const idguestAmount = document.getElementById('guest-amount');
+
+        const inicio = (idDateCheckin?.value || "");
+        const fim = (idDateCheckout?.value || "");
+        const qtd = parseInt(idguestAmount?.value || "0", 10);
+
+        if (!inicio || !fim || Number.isNaN(qtd) || qtd <= 0) {
+                    console.log("Dados incompletos para reserva");
+        }
+        
+        const daily = calculoDiarias(inicio, fim);
+        
+        //Calculo do subtotal do quarto (preco * diarias)
+        const subtotal = Number(preco) * daily;
+
+        const novoItemReserva = {
+            id,
+            nome,
+            checkIn: inicio,
+            checkOut: fim,
+            guests: qtd,
+            daily,
+            subtotal
+        };
+
+        addItemToHotel_Cart(novoItemReserva);
+        alert(`Reserva do quarto adicionada: ${nome} - Preço/diaria: R$ ${preco}
+          -Número de diárias: ${daily} - Subtotal: R$ ${subtotal}`);
+                 
+    });
+  
+    return containerCard;
 }

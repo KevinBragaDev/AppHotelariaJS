@@ -51,17 +51,29 @@ export async function listAvailableRoomsRequest({ inicio, fim, qtd }) {
     return quartos;
 }
 
-export async function createRoom(nome,numero,qtd_casal,qtd_solteiro,preco,disponivel) {
-   const dados = {nome,numero,qtd_casal,qtd_solteiro,preco,disponivel};
-        const res = await fetch('api/quartos', {
-            method: 'POST',
-            headers: {
-                'Accept':'application/json',
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify(dados),
-            credentials: 'same-origin',
-        });
+export async function createRoom(formulario) {
+    const formData = new FormData(formulario);
+
+    const typeAccept = ['image/jpeg', 'image/png'];
+
+    const inputFotos = formulario.querySelector('#formFileMultiple');
+
+    const imgs = inputFotos.files;
+
+    for (let i = 0; i < imgs.length; i++) {
+
+        if(!typeAccept.includes(imgs[i].type)) {
+            throw new Error(`Arquivo "${imgs[i].name}" não é suportado.
+            Selecione um arquivo JPG ou PNG`);
+        }}
+
+    const url = `api/quartos`;
+
+    const res = await fetch(url, {
+        method: "POST",
+        body: formData
+    });
+
         let data = null;
     try {
         data = await res.json();
@@ -71,8 +83,5 @@ export async function createRoom(nome,numero,qtd_casal,qtd_solteiro,preco,dispon
         data = null;
     }
 
-    return {
-        ok: true,
-        raw: data
-    }
+    return data;
 }

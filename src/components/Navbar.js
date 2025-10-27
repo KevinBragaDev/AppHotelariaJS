@@ -40,6 +40,9 @@ export default function Navbar() {
           <li class="nav-item">
             <a class="nav-link" href="login">Login</a>
           </li>
+          <li class="nav-item">
+            <a class="nav-link" href="room">Cadastrar Quarto</a>
+          </li>
         </ul>
 
         <!-- Carrinho: colocado fora da lista e antes do search -->

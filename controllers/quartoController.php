@@ -7,7 +7,8 @@ require_once "UploadController.php";
 
 class QuartoController {
     public static function criar($conn, $data) {
-        $result = quartoModel::criar($conn, $data);
+         ValidateController::validate_data($data, ["nome", "numero", "qnt_cama_casal", "qnt_cama_solteiro", "preco", "disponivel"]);
+         $result = quartoModel::criar($conn, $data);
         if ($result) {
             if ($data['fotos']){
                 $pictures = UploadController::upload($data['fotos']);
@@ -59,6 +60,9 @@ class QuartoController {
           
           $resultado = quartoModel:: buscarDisponiveis($conn,$data);
                 if ($resultado) {
+                    foreach ($resultado as &$quarto) {
+                $quarto['fotos'] = PhotoModel::buscarQuartoid($conn, $quarto['id']);
+            }
                     return jsonResponse(['quartos'=> $resultado]);
                 } else {
                     return jsonResponse(['mesage'=>"não tem quartos disponiveis"],400);

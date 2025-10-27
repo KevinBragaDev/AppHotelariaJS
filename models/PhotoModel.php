@@ -1,6 +1,6 @@
 <?php
 
-class quartoModel {
+class PhotoModel {
 
     public static function listarTodos($conn) {
         $sql = "SELECT * FROM quartos";
