@@ -13,7 +13,6 @@ switch ($method) {
               $inicio = isset($_GET['inicio']) ? $_GET['inicio'] : null;
               $fim = isset($_GET['fim']) ? $_GET['fim'] : null;
               $qtd = isset($_GET['qtd']) ? $_GET['qtd'] : null;
-              // jsonResponse(['message'=>[$inicio, $fim, $capacidade]], 300);
 
             if ($inicio && $fim && $qtd) {
                 $data = ['inicio' => $inicio, 'fim' => $fim, 'qtd' => $qtd];

@@ -9,7 +9,7 @@ const routes = {
     "/register": renderRegisterPage,
     "/home": renderHomePage,
     "/cart": renderCartPage,
-    "/room": renderCadQuartoPage
+    "/room": renderCadQuartoPage,
     //Novas paginas aqui adicionadas conforme desenvolvidas
 }
 

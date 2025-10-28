@@ -57,9 +57,11 @@ export default function renderHomePage() {
 
     const [dateCheckIn, dateCheckOut] = selector.querySelectorAll('input[type="date"]');
     const guestAmount = selector.querySelector('select');
+
     dateCheckIn.id = 'date-check-in';
     dateCheckOut.id = 'date-check-out';
     guestAmount.id = 'guest-amount';
+    
     const btnSearchRoom = selector.querySelector('button');
 
     

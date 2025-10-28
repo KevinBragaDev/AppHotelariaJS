@@ -1,3 +1,5 @@
+import { addItemToHotel_Cart } from "../store/cartStore.js";
+
 function calculoDiarias(checkIn, checkOut) {
     // const checkIn = "2026-01-01";
     // const checkOut = "2026-01-05";

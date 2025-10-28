@@ -9,8 +9,11 @@ class PhotoModel {
     }
 
     public static function buscarQuartoid($conn, $id){
-        $sql = "SELECT f.nome FROM imagens_quartos qf ON qf.imagem_id = f.id
-        WHERE qf.quarto_id = ?";
+        $sql = 
+        "SELECT img.nome
+        FROM imagens_quartos iq
+        JOIN imagens img ON iq.imagem_id = img.id
+        WHERE iq.quarto_id = ?";
 
         $stmt = $conn->prepare($sql);
         $stmt->bind_param("i", $id);
@@ -24,9 +27,15 @@ class PhotoModel {
     }
 
     public static function create($conn, $name) {
-        $sql = "INSERT INTO imagens (nome) VALUES (?);";
+        $sql = "INSERT INTO imagens (nome, tipo, caminho) 
+        VALUES (?, ?, ?);";
+
         $stmt = $conn->prepare($sql);
-        $stmt->bind_param("s", $name);
+        $stmt->bind_param("sss", 
+            $data[$name],
+            $data[$type],
+            $data[$path]
+        );
         if (stmt->execute()){
             return $conn->insert_id;
         }
