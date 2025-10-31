@@ -13,7 +13,7 @@
 
     } else if ($_SERVER['REQUEST_METHOD'] === "DELETE") {
         $id = $segments[2] ?? null;
-
+        
         if (isset($id)) {
             adicionalController::deletar($conn, $id);
         } else {
@@ -21,6 +21,7 @@
         }
 
     } else if ($_SERVER['REQUEST_METHOD'] === "POST" ) {
+        validateTokenAPI('Atendente');
         $data = json_decode( file_get_contents('php://input'), true);
         adicionalController::criar($conn, $data);
 

@@ -1,46 +1,39 @@
-export async function finishedOrder(items) {
-    const url = "api/order/reserva";
-    const body = {
-        cliente_id: 30,
+import { getToken } from "./authAPI.js";
 
-        
-        pagamento: "pix",
-        quartos: items.map(it => (
+export async function finishedOrder(metodoPagamento, reservations) {
+    const url = "api/order/reservas";
+    const body = {
+        pagamento: metodoPagamento,
+        quartos: reservations.map(item => (
             {
-                id: it.roomId,
-                inicio: it.checkIn,
-                fim: it.checkOut
+                id: item.id,
+                inicio: item.checkIn,
+                fim: item.checkOut
             }
         ))
     };
-
+    
+    const token = getToken?.();
     const res = await fetch(url, {
         method: "POST",
         headers: {
-            "accept": "application/json",
-            "Content-Type": "application/json"
+            "Accept": "application/json",
+            "Content-Type": "application/json",
+            "Authorization": `Bearer ${token}`
         },
-        body: JSON.stringify(body),
-        credentials: "same-origin"
+        credentials: "same-origin",
+        body: JSON.stringify(body)
     });
-
     let data = null;
     try {
+        //Retorno em json() da requisição armazenado em data
         data = await res.json();
-    } catch {
-        data = null;
     }
-    if(!data) {
-        const message = `Erro ao finalizar o pedido: ${res.status}`;
-        return { ok: false, raw: data, message }; }
-        return {
-            ok: true,
-            raw: data
-        }
-
+    catch { data = null; }
     if (!res.ok) {
-        const message = `Erro ao finalizar o pedido: ${res.status}`;
-        throw new Error(message);
-    }
-    return res.json();
-}
+        const message = `Erro ao enviar pedido: ${res.status}`;
+        return {ok: false, raw: data, message}; }
+    return {
+        ok: true,
+        raw: data
+    }}
